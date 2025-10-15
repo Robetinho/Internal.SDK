@@ -7,7 +7,7 @@ namespace Internal.SDK.AISession.DTOs
     {
         public AISessionClient(HttpClient? httpClient = null) : base("http://localhost:5221/", "api/ai-session", httpClient) { }
 
-        public async Task<Response<MessageDto>> GetResopnse(MessageDto payload)
+        public async Task<Response<MessageDto>> GetResponse(MessageDto payload)
         {
             return await GetPostResponse<MessageDto>("getResponse", payload);
         }
