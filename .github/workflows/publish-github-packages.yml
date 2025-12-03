@@ -32,18 +32,15 @@ jobs:
           echo "Fetching latest published version..."
           latest=$(curl -s -u Robetinho:${{ secrets.GH_PACKAGES_PAT }} \
             https://nuget.pkg.github.com/Robetinho/index.json \
-            | jq -r '.resources[] | select(.@type=="RegistrationsBaseUrl") | @json' \
-            ) || latest="null"
+            | jq -r '.resources[] | select(.@type=="RegistrationsBaseUrl") | @json') || latest="null"
 
-          # fallback if no package exists
           if [ "$latest" = "null" ]; then
             echo "No previous package found, starting at 1.0.0"
             echo "VERSION=1.0.0" >> $GITHUB_ENV
           else
-            # Here we would ideally parse the actual latest package version
-            # For simplicity, we can use the run number as patch increment
             echo "VERSION=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
           fi
+
           echo "Version to publish: $VERSION"
 
       - name: Restore
