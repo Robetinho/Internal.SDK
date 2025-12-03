@@ -10,7 +10,7 @@
   <PackageId>Internal.SDK</PackageId>
   <Description>Service contracts</Description>
   <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-<RepositoryUrl>https://github.com/Robertinho/Internal.SDK</RepositoryUrl>
+<RepositoryUrl>https://github.com/Robetinho/Internal.SDK</RepositoryUrl>
   </PropertyGroup>
 
  <ItemGroup>
