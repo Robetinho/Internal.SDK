@@ -35,20 +35,29 @@ jobs:
 
       # 5. Restore dependencies
       - name: Restore dependencies
-        run: dotnet restore --configfile NuGet.config
+        run: |
+          dotnet restore Internal.SDK/Internal.SDK.csproj --configfile NuGet.config
 
       # 6. Build project
       - name: Build project
-        run: dotnet build Internal.SDK/Internal.SDK.csproj --configuration Release --no-restore
+        run: |
+          dotnet build Internal.SDK/Internal.SDK.csproj \
+            --configuration Release \
+            --no-restore
 
-      # 7. Pack project with determined version
+      # 7. Pack project with auto-incremented version
       - name: Pack project
-        run: dotnet pack Internal.SDK/Internal.SDK.csproj --configuration Release --no-build /p:Version=$VERSION --output ./artifacts
+        run: |
+          dotnet pack Internal.SDK/Internal.SDK.csproj \
+            --configuration Release \
+            --no-build \
+            /p:Version=$VERSION \
+            --output ./artifacts
 
-      # 8. Publish package
+      # 8. Publish package to GitHub Packages
       - name: Publish package
-        run: dotnet nuget push "./artifacts/*.nupkg" --source github --api-key ${{ secrets.GH_PACKAGES_PAT }} --skip-duplicate
-
-      # 9. Confirm version
-      - name: Confirm published version
-        run: echo "Published version: $VERSION"
+        run: |
+          dotnet nuget push "./artifacts/*.nupkg" \
+            --source github \
+            --api-key ${{ secrets.GH_PACKAGES_PAT }} \
+            --skip-duplicate
