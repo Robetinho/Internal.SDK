@@ -2,9 +2,6 @@ name: Publish to GitHub Packages
 
 on:
   workflow_dispatch:
-  push:
-    tags:
-      - 'v*'
 
 jobs:
   publish:
@@ -21,18 +18,20 @@ jobs:
 
       - name: Authenticate GitHub Packages source
         run: |
-          dotnet nuget update source github --username Robetinho --password ${{ secrets.GH_PACKAGES_PAT }} --store-password-in-clear-text
+          dotnet nuget update source github \
+            --username Robetinho \
+            --password ${{ secrets.GH_PACKAGES_PAT }} \
+            --store-password-in-clear-text
 
       - name: Determine version
         id: get_version
         run: |
           echo "Determining version..."
           if [ -z "$GITHUB_RUN_NUMBER" ]; then
-            VERSION="1.0.0"
+            echo "VERSION=1.0.0" >> $GITHUB_ENV
           else
-            VERSION="1.0.$GITHUB_RUN_NUMBER"
+            echo "VERSION=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
           fi
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Version to publish: $VERSION"
 
       - name: Restore
@@ -43,11 +42,18 @@ jobs:
 
       - name: Pack
         run: |
-          dotnet pack Internal.SDK/Internal.SDK.csproj --configuration Release --no-build /p:Version=$VERSION --output ./artifacts
+          dotnet pack Internal.SDK/Internal.SDK.csproj \
+            --configuration Release \
+            --no-build \
+            /p:Version=$VERSION \
+            --output ./artifacts
 
       - name: Publish package to GitHub Packages
         run: |
-          dotnet nuget push "./artifacts/*.nupkg" --source github --api-key ${{ secrets.GH_PACKAGES_PAT }} --skip-duplicate
+          dotnet nuget push "./artifacts/*.nupkg" \
+            --source github \
+            --api-key ${{ secrets.GH_PACKAGES_PAT }} \
+            --skip-duplicate
 
       - name: Confirm published version
         run: echo "Published version: $VERSION"
