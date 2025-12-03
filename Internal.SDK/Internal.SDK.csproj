@@ -5,7 +5,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
    <Version>1.0.0</Version>
-  <Authors>Robertinho</Authors>
+  <Authors>Robetinho</Authors>
   <Company>py-systems</Company>
   <PackageId>Internal.SDK</PackageId>
   <Description>Service contracts</Description>
