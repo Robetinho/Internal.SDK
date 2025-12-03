@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repo
+      # 1. Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -34,6 +34,7 @@ jobs:
             echo "VERSION=1.0.0" >> $GITHUB_ENV
           else
             echo "VERSION=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+          fi
 
       # 5. Restore dependencies
       - name: Restore dependencies
