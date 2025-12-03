@@ -1,0 +1,42 @@
+name: Publish to GitHub Packages
+
+on:
+  push:
+    tags:
+      - 'v*'  # Run when a tag like v1.0.0 is pushed
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Setup NuGet authentication for GitHub Packages
+        run: |
+          dotnet nuget add source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" \
+            --name github \
+            --username ${{ github.actor }} \
+            --password ${{ secrets.GITHUB_TOKEN }} \
+            --store-password-in-clear-text
+
+      - name: Restore
+        run: dotnet restore --configfile nuget.config
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack --configuration Release --no-build -o ./artifacts
+
+      - name: Publish package to GitHub Packages
+        run: dotnet nuget push "./artifacts/*.nupkg" \
+             --source github \
+             --api-key ${{ secrets.GITHUB_TOKEN }} \
+             --skip-duplicate
