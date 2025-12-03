@@ -8,47 +8,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # 1. Checkout the repository
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 2. Setup .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.0.x'
-
-      - name: Authenticate GitHub Packages source
-        run: dotnet nuget update source github --username Robetinho --password ${{ secrets.GH_PACKAGES_PAT }} --store-password-in-clear-text
-
-      - name: Determine version
-        id: get_version
-        run: |
-          echo "Determining version..."
-          if [ -z "$GITHUB_RUN_NUMBER" ]; then
-            echo "VERSION=1.0.0" >> $GITHUB_ENV
-          else
-            echo "VERSION=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
-          fi
-          echo "Version to publish: $VERSION"
-
-      - name: Restore
-        run: dotnet restore --configfile NuGet.config
-
-      - name: Build
-        run: dotnet build --configuration Release --no-restore
-
-      - name: Pack
-        run: dotnet pack Internal.SDK/Internal.SDK.csproj --configuration Release --no-build /p:Version=$VERSION --output ./artifacts
-
-      - name: List artifacts
-        run: ls -l ./artifacts
-
-      - name: Publish package to GitHub Packages
-        env:
-          GH_API_KEY: ${{ secrets.GH_PACKAGES_PAT }}
-        run: |
-          for pkg in ./artifacts/*.nupkg; do
-            dotnet nuget push "$pkg" --source github --api-key "$GH_API_KEY" --skip-duplicate
-          done
-
-      - name: Confirm published version
-        run: echo "Published version: $VERSION"
+          dotnet-v
