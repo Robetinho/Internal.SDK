@@ -2,13 +2,16 @@ name: Publish to GitHub Packages
 
 on:
   workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   publish:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout the repository
+      # 1. Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
@@ -18,7 +21,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      # 3. Authenticate GitHub Packages source
+      # 3. Authenticate GitHub Packages
       - name: Authenticate GitHub Packages
         run: |
           dotnet nuget update source github \
@@ -26,21 +29,19 @@ jobs:
             --password ${{ secrets.GH_PACKAGES_PAT }} \
             --store-password-in-clear-text
 
-      # 4. Determine version based on latest published package
+      # 4. Determine version from tags
       - name: Determine version
         id: get_version
         run: |
-          echo "Fetching latest published version..."
-          latest=$(curl -s -H "Authorization: Bearer ${{ secrets.GH_PACKAGES_PAT }}" \
-            https://nuget.pkg.github.com/Robetinho/index.json | \
-            jq -r '.packages."Internal.SDK" | keys | sort | last')
-          if [ -z "$latest" ] || [ "$latest" = "null" ]; then
-            echo "VERSION=1.0.0" >> $GITHUB_ENV
+          latest_tag=$(git tag --list "v1.0.*" --sort=-v:refname | head -n1)
+          if [ -z "$latest_tag" ]; then
+            VERSION="1.0.0"
           else
-            IFS='.' read -r major minor patch <<< "$latest"
+            patch=${latest_tag##*.}
             patch=$((patch + 1))
-            echo "VERSION=$major.$minor.$patch" >> $GITHUB_ENV
+            VERSION="1.0.$patch"
           fi
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Determined version: $VERSION"
 
       # 5. Restore dependencies
@@ -51,10 +52,18 @@ jobs:
       - name: Build project
         run: dotnet build Internal.SDK/Internal.SDK.csproj --configuration Release --no-restore
 
-      # 7. Pack project with determined version
+      # 7. Pack project with version
       - name: Pack project
         run: dotnet pack Internal.SDK/Internal.SDK.csproj --configuration Release --no-build /p:Version=$VERSION --output ./artifacts
 
-      # 8. Publish package to GitHub Packages
+      # 8. Publish package
       - name: Publish package
         run: dotnet nuget push "./artifacts/*.nupkg" --source github --api-key ${{ secrets.GH_PACKAGES_PAT }} --skip-duplicate
+
+      # 9. Create a new tag for this version
+      - name: Create Git tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag "v$VERSION"
+          git push origin "v$VERSION"
