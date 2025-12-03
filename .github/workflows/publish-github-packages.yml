@@ -17,13 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # IMPORTANT: fetch tags so we can version correctly
+          fetch-depth: 0  # fetch tags for versioning
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
- 
+
+      # 1️⃣ Auto-increment patch version
       - name: Generate new version
         id: version
         run: |
@@ -34,24 +35,24 @@ jobs:
             new_version="1.0.0"
           else
             echo "Latest tag found: $latest_tag"
-
-            version="${latest_tag#v}"  # strip leading 'v'
+            version="${latest_tag#v}"
             IFS='.' read -r major minor patch <<< "$version"
-
             patch=$((patch + 1))
             new_version="${major}.${minor}.${patch}"
           fi
 
           echo "PACKAGE_VERSION=$new_version" >> $GITHUB_ENV
           echo "New version: $new_version"
- 
+
+      # 2️⃣ Push the new tag
       - name: Push new tag
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag "v${{ env.PACKAGE_VERSION }}"
           git push origin "v${{ env.PACKAGE_VERSION }}"
- 
+
+      # 3️⃣ Authenticate GitHub Packages
       - name: Authenticate GitHub Packages source
         run: |
           dotnet nuget update source github \
@@ -63,13 +64,17 @@ jobs:
         run: dotnet restore --configfile NuGet.config
 
       - name: Build
-        run: dotnet build --configuration Release --no-restore
- 
+        run: dotnet build Internal.SDK/Internal.SDK.csproj --configuration Release --no-restore
+
+      # 4️⃣ Pack specific project (FIXED)
       - name: Pack
-        run: dotnet pack --configuration Release --no-build \
+        run: dotnet pack Internal.SDK/Internal.SDK.csproj \
+             --configuration Release \
+             --no-build \
              /p:Version="${{ env.PACKAGE_VERSION }}" \
              --output ./artifacts
- 
+
+      # 5️⃣ Push to GitHub Packages
       - name: Publish package to GitHub Packages
         run: dotnet nuget push "./artifacts/*.nupkg" \
              --source github \
