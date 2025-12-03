@@ -1,9 +1,10 @@
 name: Publish to GitHub Packages
 
 on:
+  workflow_dispatch:   # <-- enables the Run Workflow button
   push:
     tags:
-      - 'v*'  # Run when a tag like v1.0.0 is pushed
+      - 'v*'           # optional: still supports tag-triggered releases
 
 jobs:
   publish:
