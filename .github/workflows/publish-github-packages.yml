@@ -26,12 +26,11 @@ jobs:
             --password ${{ secrets.GH_PACKAGES_PAT }} \
             --store-password-in-clear-text
 
-      # 4. Determine version automatically using workflow run number
+      # 4. Determine version automatically
       - name: Determine version
         run: |
           VERSION="1.0.$GITHUB_RUN_NUMBER"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Determined version: $VERSION"
 
       # 5. Restore dependencies
       - name: Restore dependencies
@@ -48,7 +47,6 @@ jobs:
       # 7. Pack project with auto-incremented version
       - name: Pack project
         run: |
-          echo "Packing project with version $VERSION"
           dotnet pack Internal.SDK/Internal.SDK.csproj \
             --configuration Release \
             --no-build \
