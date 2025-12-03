@@ -22,4 +22,21 @@ jobs:
       - name: Authenticate GitHub Packages source
         run: |
           dotnet nuget update source github \
-            --username ${{ github.ac
+            --username ${{ github.actor }} \
+            --password ${{ secrets.GITHUB_TOKEN }} \
+            --store-password-in-clear-text
+
+      - name: Restore
+        run: dotnet restore --configfile NuGet.config
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack --configuration Release --no-build -o ./artifacts
+
+      - name: Publish package to GitHub Packages
+        run: dotnet nuget push "./artifacts/*.nupkg" \
+             --source github \
+             --api-key ${{ secrets.GITHUB_TOKEN }} \
+             --skip-duplicate
