@@ -23,8 +23,7 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
-      # 1️⃣ Auto-increment patch version based on latest vX.Y.Z tag
+ 
       - name: Generate new version
         id: version
         run: |
@@ -45,16 +44,14 @@ jobs:
 
           echo "PACKAGE_VERSION=$new_version" >> $GITHUB_ENV
           echo "New version: $new_version"
-
-      # 2️⃣ Push the new version tag
+ 
       - name: Push new tag
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag "v${{ env.PACKAGE_VERSION }}"
           git push origin "v${{ env.PACKAGE_VERSION }}"
-
-      # 3️⃣ NuGet authentication
+ 
       - name: Authenticate GitHub Packages source
         run: |
           dotnet nuget update source github \
@@ -67,14 +64,12 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
-
-      # 4️⃣ Pack using the new auto-generated version (fixed argument order)
+ 
       - name: Pack
         run: dotnet pack --configuration Release --no-build \
              /p:Version="${{ env.PACKAGE_VERSION }}" \
              --output ./artifacts
-
-      # 5️⃣ Push package to GitHub NuGet feed
+ 
       - name: Publish package to GitHub Packages
         run: dotnet nuget push "./artifacts/*.nupkg" \
              --source github \
