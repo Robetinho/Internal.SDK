@@ -30,17 +30,13 @@ jobs:
         id: get_version
         run: |
           echo "Fetching latest published version..."
-          latest=$(curl -s -u Robetinho:${{ secrets.GH_PACKAGES_PAT }} \
-            https://nuget.pkg.github.com/Robetinho/index.json \
-            | jq -r '.resources[] | select(.@type=="RegistrationsBaseUrl") | @json') || latest="null"
-
-          if [ "$latest" = "null" ]; then
+          latest=$(curl -s -u Robetinho:${{ secrets.GH_PACKAGES_PAT }} https://nuget.pkg.github.com/Robetinho/index.json)
+          if [ -z "$latest" ]; then
             echo "No previous package found, starting at 1.0.0"
             echo "VERSION=1.0.0" >> $GITHUB_ENV
           else
             echo "VERSION=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
           fi
-
           echo "Version to publish: $VERSION"
 
       - name: Restore
