@@ -1,13 +1,13 @@
 name: Publish to GitHub Packages
- 
+
 permissions:
-  contents: write
+  contents: write   # REQUIRED so the workflow can push version tags
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - main   # triggers when pushing to main, OR when manually run
+      - main
 
 jobs:
   publish:
@@ -23,11 +23,11 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
- 
+
+      # 1️⃣ Auto-increment patch version based on latest vX.Y.Z tag
       - name: Generate new version
         id: version
         run: |
-          # Get most recent v* tag (semantic version)
           latest_tag=$(git tag --sort=-v:refname | head -n 1)
 
           if [[ -z "$latest_tag" ]]; then
@@ -39,21 +39,22 @@ jobs:
             version="${latest_tag#v}"  # strip leading 'v'
             IFS='.' read -r major minor patch <<< "$version"
 
-            # Increment patch version
             patch=$((patch + 1))
             new_version="${major}.${minor}.${patch}"
           fi
 
           echo "PACKAGE_VERSION=$new_version" >> $GITHUB_ENV
-          echo "Created version: $new_version"
- 
+          echo "New version: $new_version"
+
+      # 2️⃣ Push the new version tag
       - name: Push new tag
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git tag "v${{ env.PACKAGE_VERSION }}"
           git push origin "v${{ env.PACKAGE_VERSION }}"
- 
+
+      # 3️⃣ NuGet authentication
       - name: Authenticate GitHub Packages source
         run: |
           dotnet nuget update source github \
@@ -66,12 +67,14 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
- 
+
+      # 4️⃣ Pack using the new auto-generated version (fixed argument order)
       - name: Pack
         run: dotnet pack --configuration Release --no-build \
-       /p:Version="${{ env.PACKAGE_VERSION }}" \
-       --output ./artifacts
+             /p:Version="${{ env.PACKAGE_VERSION }}" \
+             --output ./artifacts
 
+      # 5️⃣ Push package to GitHub NuGet feed
       - name: Publish package to GitHub Packages
         run: dotnet nuget push "./artifacts/*.nupkg" \
              --source github \
