@@ -48,6 +48,7 @@ jobs:
       # 7. Pack project with auto-incremented version
       - name: Pack project
         run: |
+          echo "Packing project with version $VERSION"
           dotnet pack Internal.SDK/Internal.SDK.csproj \
             --configuration Release \
             --no-build \
