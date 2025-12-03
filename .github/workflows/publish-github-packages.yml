@@ -1,13 +1,10 @@
 name: Publish to GitHub Packages
 
-permissions:
-  contents: write  # Needed to push tags
-
 on:
   workflow_dispatch:
   push:
-    branches:
-      - main
+    tags:
+      - 'v*'
 
 jobs:
   publish:
@@ -16,39 +13,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # Fetch all tags for version calculation
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-
-      - name: Generate new version
-        id: version
-        run: |
-          latest_tag=$(git tag --sort=-v:refname | head -n 1)
-
-          if [[ -z "$latest_tag" ]]; then
-            echo "No tags found. Starting at v1.0.0"
-            new_version="1.0.0"
-          else
-            echo "Latest tag found: $latest_tag"
-            version="${latest_tag#v}"
-            IFS='.' read -r major minor patch <<< "$version"
-            patch=$((patch + 1))
-            new_version="${major}.${minor}.${patch}"
-          fi
-
-          echo "PACKAGE_VERSION=$new_version" >> $GITHUB_ENV
-          echo "New version: $new_version"
-
-      - name: Push new tag
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git tag "v${{ env.PACKAGE_VERSION }}"
-          git push origin "v${{ env.PACKAGE_VERSION }}"
 
       - name: Authenticate GitHub Packages source
         run: |
@@ -57,14 +26,46 @@ jobs:
             --password ${{ secrets.GH_PACKAGES_PAT }} \
             --store-password-in-clear-text
 
-      - name: Restore dependencies
+      - name: Determine latest published version
+        id: get_version
+        run: |
+          echo "Fetching latest published version..."
+          latest=$(curl -s -u Robetinho:${{ secrets.GH_PACKAGES_PAT }} \
+            https://nuget.pkg.github.com/Robetinho/index.json \
+            | jq -r '.resources[] | select(.@type=="RegistrationsBaseUrl") | @json' \
+            ) || latest="null"
+
+          # fallback if no package exists
+          if [ "$latest" = "null" ]; then
+            echo "No previous package found, starting at 1.0.0"
+            echo "VERSION=1.0.0" >> $GITHUB_ENV
+          else
+            # Here we would ideally parse the actual latest package version
+            # For simplicity, we can use the run number as patch increment
+            echo "VERSION=1.0.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+          fi
+          echo "Version to publish: $VERSION"
+
+      - name: Restore
         run: dotnet restore --configfile NuGet.config
 
       - name: Build
-        run: dotnet build Internal.SDK/Internal.SDK.csproj --configuration Release --no-restore
+        run: dotnet build --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack Internal.SDK/Internal.SDK.csproj --configuration Release --no-build /p:Version="${{ env.PACKAGE_VERSION }}" --output ./artifacts
+        run: |
+          dotnet pack Internal.SDK/Internal.SDK.csproj \
+            --configuration Release \
+            --no-build \
+            /p:Version=$VERSION \
+            --output ./artifacts
 
       - name: Publish package to GitHub Packages
-        run: dotnet nuget push "./artifacts/*.nupkg" --source github --api-key ${{ secrets.GH_PACKAGES_PAT }} --skip-duplicate
+        run: |
+          dotnet nuget push "./artifacts/*.nupkg" \
+            --source github \
+            --api-key ${{ secrets.GH_PACKAGES_PAT }} \
+            --skip-duplicate
+
+      - name: Confirm published version
+        run: echo "Published version: $VERSION"
