@@ -43,9 +43,11 @@ jobs:
         run: ls -l ./artifacts
 
       - name: Publish package to GitHub Packages
+        env:
+          GH_API_KEY: ${{ secrets.GH_PACKAGES_PAT }}
         run: |
           for pkg in ./artifacts/*.nupkg; do
-            dotnet nuget push "$pkg" --source github --api-key ${{ secrets.GH_PACKAGES_PAT }} --skip-duplicate
+            dotnet nuget push "$pkg" --source github --api-key "$GH_API_KEY" --skip-duplicate
           done
 
       - name: Confirm published version
