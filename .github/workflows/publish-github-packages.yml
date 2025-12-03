@@ -14,7 +14,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
-          version: '8.0.x'  # <-- corrected key
+          version: '8.0.x'
 
       - name: Authenticate GitHub Packages source
         run: dotnet nuget update source github --username Robetinho --password ${{ secrets.GH_PACKAGES_PAT }} --store-password-in-clear-text
