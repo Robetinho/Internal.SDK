@@ -37,7 +37,12 @@ jobs:
         run: dotnet build --configuration Release --no-restore
 
       - name: Pack
-        run: dotnet pack Internal.SDK/Internal.SDK.csproj --configuration Release --no-build --output ./artifacts /p:Version=$VERSION
+        run: >
+          dotnet pack Internal.SDK/Internal.SDK.csproj
+          --configuration Release
+          --no-build
+          /p:Version=$VERSION
+          --output ./artifacts
 
       - name: List artifacts
         run: ls -l ./artifacts
