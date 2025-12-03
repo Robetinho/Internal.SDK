@@ -3,9 +3,8 @@ name: Publish to GitHub Packages
 on:
   workflow_dispatch:
   push:
-    branches: [ main ]   # You can keep this or remove it
-    # tags:
-    #   - 'v*'           # REMOVE tag trigger so auto-version works
+    tags:
+      - 'v*'
 
 jobs:
   publish:
@@ -13,45 +12,12 @@ jobs:
 
     steps:
       - name: Checkout
-      # IMPORTANT: fetch all tags so we can increment properly
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
-  
-      - name: Generate new version
-        id: version
-        run: |
-          # Get latest tag
-          latest_tag=$(git tag --sort=-v:refname | head -n 1)
-
-          if [[ -z "$latest_tag" ]]; then
-            echo "No existing version tag found. Starting at 1.0.0"
-            new_version="1.0.0"
-          else
-            echo "Latest version tag: $latest_tag"
-
-            version="${latest_tag#v}"  # remove leading v
-            IFS='.' read -r major minor patch <<< "$version"
-
-            # increment patch
-            patch=$((patch + 1))
-            new_version="${major}.${minor}.${patch}"
-          fi
-
-          echo "PACKAGE_VERSION=$new_version" >> $GITHUB_ENV
-          echo "New version: $new_version"
- 
-      - name: Push new version tag
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git tag "v${{ env.PACKAGE_VERSION }}"
-          git push origin "v${{ env.PACKAGE_VERSION }}"
 
       - name: Authenticate GitHub Packages source
         run: |
@@ -65,9 +31,9 @@ jobs:
 
       - name: Build
         run: dotnet build --configuration Release --no-restore
- 
+
       - name: Pack
-        run: dotnet pack --configuration Release --no-build -o ./artifacts /p:Version="${{ env.PACKAGE_VERSION }}"
+        run: dotnet pack --configuration Release --no-build -o ./artifacts
 
       - name: Publish package to GitHub Packages
         run: dotnet nuget push "./artifacts/*.nupkg" --source github --api-key ${{ secrets.GH_PACKAGES_PAT }} --skip-duplicate
