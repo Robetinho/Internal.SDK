@@ -48,3 +48,7 @@ jobs:
       # 8. Publish package
       - name: Publish package
         run: dotnet nuget push "./artifacts/*.nupkg" --source github --api-key ${{ secrets.GH_PACKAGES_PAT }} --skip-duplicate
+
+      # 9. Confirm version
+      - name: Confirm published version
+        run: echo "Published version: $VERSION"
