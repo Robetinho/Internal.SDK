@@ -1,66 +1,68 @@
-name: Publish to GitHub Packages
+name: DEBUG Versioning
 
 on:
   workflow_dispatch:
 
 jobs:
-  publish:
+  debug:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Checkout repository
-      - name: Checkout repository
+      - name: Checkout
         uses: actions/checkout@v4
 
-      # 2. Setup .NET SDK
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
 
-      # 3. Authenticate GitHub Packages
-      - name: Authenticate GitHub Packages
-        run: |
-          dotnet nuget update source github \
-            --username Robetinho \
-            --password ${{ secrets.GH_PACKAGES_PAT }} \
-            --store-password-in-clear-text
-
-      # 4. Determine auto-incremented version
+      # 1. Determine version
       - name: Determine version
         run: |
-          # Use GitHub run number to increment minor version
           VERSION="1.0.$GITHUB_RUN_NUMBER"
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "Determined version: $VERSION"
+          echo ">>> DEBUG: VERSION calculated = $VERSION"
 
-      # 5. Restore dependencies
-      - name: Restore dependencies
+      # 2. Show .csproj contents
+      - name: Show csproj
+        run: |
+          echo ">>> DEBUG: Printing csproj:"
+          cat Internal.SDK/Internal.SDK.csproj
+
+      # 3. Restore
+      - name: Restore
         run: |
           dotnet restore Internal.SDK/Internal.SDK.csproj --configfile NuGet.config
 
-      # 6. Build project
-      - name: Build project
+      # 4. Build
+      - name: Build
         run: |
-          dotnet build Internal.SDK/Internal.SDK.csproj \
-            --configuration Release \
-            --no-restore
+          dotnet build Internal.SDK/Internal.SDK.csproj --configuration Release --no-restore
 
-      # 7. Pack project with forced version
-      - name: Pack project
+      # 5. Pack with version
+      - name: Pack
         run: |
-          echo "Packing with version $VERSION"
+          echo ">>> DEBUG: Running dotnet pack with version = $VERSION"
           dotnet pack Internal.SDK/Internal.SDK.csproj \
             --configuration Release \
             --no-build \
             /p:Version=$VERSION \
             /p:PackageVersion=$VERSION \
+            /v:detailed \
             --output ./artifacts
 
-      # 8. Publish package
-      - name: Publish package
+      # 6. Show artifacts folder contents
+      - name: List artifacts
         run: |
-          dotnet nuget push "./artifacts/*.nupkg" \
-            --source github \
-            --api-key ${{ secrets.GH_PACKAGES_PAT }} \
-            --skip-duplicate
+          echo ">>> DEBUG: Listing artifacts folder:"
+          ls -R ./artifacts
+
+      # 7. Extract nuspec file from .nupkg
+      - name: Inspect nupkg
+        run: |
+          FILE=$(ls ./artifacts/*.nupkg | head -n 1)
+          echo ">>> DEBUG: Found nupkg file: $FILE"
+          mkdir extracted
+          unzip -qq "$FILE" -d extracted
+          echo ">>> DEBUG: Contents of .nuspec:"
+          cat extracted/*.nuspec
