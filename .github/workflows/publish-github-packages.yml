@@ -2,6 +2,10 @@ name: Publish to GitHub Packages
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: [ main, master ]
+  push:
+    branches: [ main, master ]
 
 jobs:
   publish:
@@ -53,8 +57,9 @@ jobs:
             /p:Version=$VERSION \
             --output ./artifacts
 
-      # 8. Publish package to GitHub Packages
+      # 8. Publish package to GitHub Packages (only on push to main/master)
       - name: Publish package
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
         run: |
           dotnet nuget push "./artifacts/*.nupkg" \
             --source github \
