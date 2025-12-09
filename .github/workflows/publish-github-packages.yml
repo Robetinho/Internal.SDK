@@ -1,0 +1,62 @@
+name: Publish to GitHub Packages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # 2. Setup .NET SDK
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      # 3. Authenticate GitHub Packages
+      - name: Authenticate GitHub Packages
+        run: |
+          dotnet nuget update source github \
+            --username Robetinho \
+            --password ${{ secrets.GH_PACKAGES_PAT }} \
+            --store-password-in-clear-text
+
+      # 4. Determine version automatically
+      - name: Determine version
+        run: |
+          VERSION="1.0.$GITHUB_RUN_NUMBER"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # 5. Restore dependencies
+      - name: Restore dependencies
+        run: |
+          dotnet restore Internal.SDK/Internal.SDK.csproj --configfile NuGet.config
+
+      # 6. Build project
+      - name: Build project
+        run: |
+          dotnet build Internal.SDK/Internal.SDK.csproj \
+            --configuration Release \
+            --no-restore
+
+      # 7. Pack project with auto-incremented version
+      - name: Pack project
+        run: |
+          dotnet pack Internal.SDK/Internal.SDK.csproj \
+            --configuration Release \
+            --no-build \
+            /p:Version=$VERSION \
+            --output ./artifacts
+
+      # 8. Publish package to GitHub Packages
+      - name: Publish package
+        run: |
+          dotnet nuget push "./artifacts/*.nupkg" \
+            --source github \
+            --api-key ${{ secrets.GH_PACKAGES_PAT }} \
+            --skip-duplicate
