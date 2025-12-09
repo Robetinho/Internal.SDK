@@ -5,8 +5,8 @@ namespace Internal.SDK.AISession
 {
     public interface IAISessionClient
     {
-        Task<Response<string>> GetReply(MessageDto payload);
+        Task<Response<string>> GetReply(MessageDto Payload);
 
-        Task<Response<MessageDto>> InitiateSession(InitiateSessionRequestDTO payload);
+        Task<Response<MessageDto>> InitiateSession(InitiateSessionRequestDTO Payload);
     }
 }

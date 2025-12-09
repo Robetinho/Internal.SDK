@@ -10,13 +10,13 @@ namespace Internal.SDK.AISession
          
         public AISessionClient() : this(null!) { } 
          
-        public async Task<Response<string>> GetReply(MessageDto payload)
+        public async Task<Response<string>> GetReply(MessageDto Payload)
         {
-            return await GetPostResponse<string>("getReply", payload);
+            return await GetPostResponse<string>("getReply", Payload);
         }
-        public async Task<Response<MessageDto>> InitiateSession(InitiateSessionRequestDTO payload)
+        public async Task<Response<MessageDto>> InitiateSession(InitiateSessionRequestDTO Payload)
         {
-            return await GetPostResponse<MessageDto>("initiateSession", payload);
+            return await GetPostResponse<MessageDto>("initiateSession", Payload);
         }
     }
 }

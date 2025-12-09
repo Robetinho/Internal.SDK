@@ -11,21 +11,21 @@ namespace Internal.SDK.AISession
     {
         [Route("getReply")]
         [HttpPost]
-        public async Task<IActionResult> GetReplyRoute([FromBody] MessageDto payload)
+        public async Task<IActionResult> GetReplyRoute([FromBody] MessageDto Payload)
         {
-            return await  ExecuteSafeAsync(() => GetReply(payload));
+            return await  ExecuteSafeAsync(() => GetReply(Payload));
         }
 
-        public abstract Task<string> GetReply(MessageDto payload);
+        public abstract Task<string> GetReply(MessageDto Payload);
 
         [Route("initiateSession")]
         [HttpPost]
-        public async Task<IActionResult> InitiateSessionRoute([FromBody] InitiateSessionRequestDTO payload)
+        public async Task<IActionResult> InitiateSessionRoute([FromBody] InitiateSessionRequestDTO Payload)
         {
-            return await ExecuteSafeAsync(() => InitiateSession(payload));
+            return await ExecuteSafeAsync(() => InitiateSession(Payload));
         }
 
-        public abstract Task<MessageDto> InitiateSession(InitiateSessionRequestDTO payload);
+        public abstract Task<MessageDto> InitiateSession(InitiateSessionRequestDTO Payload);
     } 
    
 }
