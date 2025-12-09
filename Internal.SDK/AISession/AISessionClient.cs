@@ -6,7 +6,7 @@ namespace Internal.SDK.AISession
 
     public class AISessionClient : ClientBase
     {   
-        public AISessionClient(HttpClient httpClient) : base("http://localhost:5221/", "api/ai-session", httpClient) { }
+        public AISessionClient(HttpClient httpClient) : base("http://localhost:5002/", "api/ai-session", httpClient) { }
          
         public AISessionClient() : this(null!) { } 
          
