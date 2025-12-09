@@ -1,15 +1,18 @@
-﻿using Internal.SDK.Base;
+﻿using Internal.SDK.AISession.DTOs;
+using Internal.SDK.Base;
 
-namespace Internal.SDK.AISession.DTOs
+namespace Internal.SDK.AISession 
 {
 
     public class AISessionClient : ClientBase
-    {
-        public AISessionClient(HttpClient? httpClient = null) : base("http://localhost:5221/", "api/ai-session", httpClient) { }
-
-        public async Task<Response<MessageDto>> GetResponse(MessageDto payload)
+    {   
+        public AISessionClient(HttpClient httpClient) : base("http://localhost:5221/", "api/ai-session", httpClient) { }
+         
+        public AISessionClient() : this(null!) { } 
+         
+        public async Task<Response<string>> GetReply(MessageDto payload)
         {
-            return await GetPostResponse<MessageDto>("getResponse", payload);
+            return await GetPostResponse<string>("getReply", payload);
         }
         public async Task<Response<MessageDto>> InitiateSession(InitiateSessionRequestDTO payload)
         {

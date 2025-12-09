@@ -5,7 +5,8 @@ using System.Text.Json;
 namespace Internal.SDK.Base
 {
     public abstract class ClientBase
-    {
+    { 
+        private readonly string key = @"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";
         private readonly string _domain;
         private readonly string _root;
         private readonly HttpClient _httpClient;

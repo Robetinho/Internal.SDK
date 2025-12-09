@@ -9,7 +9,7 @@ namespace Internal.SDK.Base
 
     public class ConversationProtocolClient : ClientBase
     {
-        public ConversationProtocolClient(HttpClient? httpClient = null) : base("http://localhost:5221/", "api/conversation-protocol", httpClient) { }
+        public ConversationProtocolClient(HttpClient? httpClient = null) : base("http://localhost:5000/", "api/conversation-protocol", httpClient) { }
 
         public async Task<Response<MessageDto>> GetReply(MessageDto payload)
         {

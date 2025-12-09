@@ -1,20 +1,22 @@
 ﻿using Internal.SDK.AISession.DTOs; 
-using Microsoft.AspNetCore.Mvc; 
+using Microsoft.AspNetCore.Mvc;
+using Internal.SDK.Base;
+using ControllerBase = Internal.SDK.Base.ControllerBase;
 
-namespace Internal.SDK.Base
+namespace Internal.SDK.AISession
 {
     [ApiController]
     [Route("api/ai-session")] 
     public abstract class AISessionControllerBase :  ControllerBase
     {
-        [Route("getResponse")]
-        [ HttpPost]
-        public async Task<IActionResult> GetResponseRoute([FromBody] MessageDto payload)
+        [Route("getReply")]
+        [HttpPost]
+        public async Task<IActionResult> GetReplyRoute([FromBody] MessageDto payload)
         {
-            return await ExecuteSafeAsync(() => GetResponse(payload));
+            return await  ExecuteSafeAsync(() => GetReply(payload));
         }
 
-        public abstract Task<MessageDto> GetResponse(MessageDto payload);
+        public abstract Task<string> GetReply(MessageDto payload);
 
         [Route("initiateSession")]
         [HttpPost]

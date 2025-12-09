@@ -8,8 +8,9 @@ namespace Internal.SDK.ConversationProtocol.DTOs
 {
     public class MessageDto
     {
-        public string ConversationId { get; set; }
+        public required string ConversationId { get; set; }
 
-        public string Message { get; set; }
+        public required string Message { get; set; }
     }
+     
 }
