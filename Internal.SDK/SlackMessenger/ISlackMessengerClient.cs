@@ -6,5 +6,7 @@ namespace Internal.SDK.SlackMessenger
     public interface ISlackMessengerClient
     {
         Task<Response<SendSlackMessageResponseDTO>> SendSlackMessage(SendSlackMessageRequestDTO Payload);
+
+        void SendSlackMessage(string channel, string message);
     }
 }
