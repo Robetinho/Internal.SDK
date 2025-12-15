@@ -19,8 +19,7 @@ namespace Internal.SDK.SystemLogger
         public SystemLoggerClient(IHostEnvironment hostEnvironment) : this(hostEnvironment, null!) { }
 
         private async Task<Response<LogResponseDTO>> Log(LogRequestDTO Payload)
-        {
-            Payload.Timestamp = DateTime.UtcNow;
+        { 
             Payload.ApplicationName = _applicationName;
 
             return await GetPostResponse<LogResponseDTO>("log", Payload);
@@ -37,7 +36,8 @@ namespace Internal.SDK.SystemLogger
             {
                 Type =  LogType.ERROR,
                 Message = message,
-                Details = details
+                Details = details,
+                Timestamp = DateTime.UtcNow
             };
 
             _ = Task.Run(() => Log(payload));
@@ -55,7 +55,8 @@ namespace Internal.SDK.SystemLogger
             {
                 Type = LogType.ALERT,
                 Message = message,
-                Details = details
+                Details = details,
+                Timestamp = DateTime.UtcNow
             };
 
             _ = Task.Run(() => Log(payload));
@@ -67,7 +68,8 @@ namespace Internal.SDK.SystemLogger
             {
                 Type = LogType.INFO,
                 Message = message,
-                Details = details
+                Details = details,
+                Timestamp = DateTime.UtcNow
             };
 
             _ = Task.Run(() => Log(payload));
@@ -82,7 +84,8 @@ namespace Internal.SDK.SystemLogger
             {
                 Type = LogType.REQUEST,
                 Message = message,
-                Details = details
+                Details = details,
+                Timestamp = DateTime.UtcNow
             };
 
             _ = Task.Run(() => Log(payload));
