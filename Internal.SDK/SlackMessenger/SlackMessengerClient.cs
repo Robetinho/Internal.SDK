@@ -1,5 +1,6 @@
-﻿using Internal.SDK.SlackMessenger.DTOs;
-using Internal.SDK.Base;
+﻿using Internal.SDK.Base;
+using Internal.SDK.SlackMessenger.DTOs;
+using Internal.SDK.SystemLogger.DTOs;
 
 namespace Internal.SDK.SlackMessenger 
 {
@@ -13,6 +14,11 @@ namespace Internal.SDK.SlackMessenger
         public async Task<Response<SendSlackMessageResponseDTO>> SendSlackMessage(SendSlackMessageRequestDTO Payload)
         {
             return await GetPostResponse<SendSlackMessageResponseDTO>("sendSlackMessage", Payload);
+        }
+
+        public void SendSlackMessage(string channel, string message)
+        {
+            _ = Task.Run(() => SendSlackMessage(channel, message));
         }
     }
 }
