@@ -6,7 +6,7 @@ namespace Internal.SDK.SystemLogger
 {
     public interface ISystemLoggerClient
     {
-        Task<Response<LogResponseDTO>> Log(LogRequestDTO Payload);
+       // Task<Response<LogResponseDTO>> Log(LogRequestDTO Payload);
         void LogError(Exception exception);
         void LogError(string message, string? details = null);
         void LogAlert(Exception exception);
