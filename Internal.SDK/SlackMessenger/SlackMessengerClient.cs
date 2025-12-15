@@ -16,9 +16,9 @@ namespace Internal.SDK.SlackMessenger
             return await GetPostResponse<SendSlackMessageResponseDTO>("sendSlackMessage", Payload);
         }
 
-        public void SendSlackMessage(string channel, string message)
+        public void SendSlackMessage(string slackChannelName, string message)
         {
-            _ = Task.Run(() => SendSlackMessage(channel, message));
+            _ = Task.Run(() => SendSlackMessage(new SendSlackMessageRequestDTO {  Message = message, SlackChannelName = slackChannelName} ));
         }
     }
 }
