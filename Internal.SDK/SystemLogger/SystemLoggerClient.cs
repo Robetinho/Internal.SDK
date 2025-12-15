@@ -18,7 +18,7 @@ namespace Internal.SDK.SystemLogger
 
         public SystemLoggerClient(IHostEnvironment hostEnvironment) : this(hostEnvironment, null!) { }
 
-        public async Task<Response<LogResponseDTO>> Log(LogRequestDTO Payload)
+        private async Task<Response<LogResponseDTO>> Log(LogRequestDTO Payload)
         {
             Payload.Timestamp = DateTime.UtcNow;
             Payload.ApplicationName = _applicationName;

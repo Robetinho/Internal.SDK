@@ -23,8 +23,8 @@ namespace Internal.SDK.SystemLogger.DTOs
 
         public string? Details { get; init; }
 
-        public DateTime? Timestamp{ get; internal set; } 
+            public DateTime? Timestamp{ get; set; } 
 
-        public string? ApplicationName { get; internal set; } 
+        public string? ApplicationName { get; set; } 
     }
 }
