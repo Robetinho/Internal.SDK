@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
+﻿ 
 
 namespace Internal.SDK.Base
 {
@@ -44,6 +38,11 @@ namespace Internal.SDK.Base
                 
                 if (lastResponse.IsSuccess)
                 {
+                    if (_clientBase._systemLoggerClient != null)
+                    {
+                        _clientBase._systemLoggerClient.LogAlert($"The retry attemp of the call: {_httpMethod!} {_path} Body: {_body} QueryString: {_queryString} executed successfully");
+                    }
+
                     return lastResponse;
                 }
             }

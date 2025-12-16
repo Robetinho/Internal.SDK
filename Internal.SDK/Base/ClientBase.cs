@@ -11,7 +11,7 @@ namespace Internal.SDK.Base
         private readonly string _domain;
         private readonly string _root;
         private readonly HttpClient _httpClient;
-        private readonly ISystemLoggerClient? _systemLoggerClient;
+        internal readonly ISystemLoggerClient? _systemLoggerClient;
 
         internal ClientBase(string domain, string root, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null)
         {
@@ -79,7 +79,7 @@ namespace Internal.SDK.Base
 
                 if (_systemLoggerClient != null)
                 {
-                    _systemLoggerClient.LogError($"An error occured when calling the following network call: {httpMethod} {path} Body: {body} QueryString: {queryString} Exception: {ex.Message}", ex.StackTrace);
+                    _systemLoggerClient.LogAlert($"An error occured when calling the following network call: {httpMethod} {path} Body: {body} QueryString: {queryString} Exception: {ex.Message}", ex.StackTrace);
                 }
             }
 
