@@ -1,15 +1,16 @@
 ﻿using Internal.SDK.AISession.DTOs;
 using Internal.SDK.Base;
+using Internal.SDK.SystemLogger;
 
-namespace Internal.SDK.AISession 
+namespace Internal.SDK.AISession
 {
 
     public class AISessionClient : ClientBase, IAISessionClient
-    {   
-        public AISessionClient(HttpClient httpClient) : base("http://localhost:5002/", "api/ai-session", httpClient) { }
-         
-        public AISessionClient() : this(null!) { } 
-         
+    {
+        public AISessionClient(HttpClient httpClient, ISystemLoggerClient systemLogger) : base("http://localhost:5002/", "api/ai-session", httpClient, systemLogger) { }
+
+        //public AISessionClient() : this(null!) { } 
+
         public async Task<Response<string>> GetReply(MessageDto Payload)
         {
             return await GetPostResponse<string>("getReply", Payload);

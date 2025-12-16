@@ -1,5 +1,6 @@
 ﻿using Internal.SDK.Base;
 using Internal.SDK.SlackMessenger.DTOs;
+using Internal.SDK.SystemLogger;
 using Internal.SDK.SystemLogger.DTOs;
 
 namespace Internal.SDK.SlackMessenger
@@ -7,9 +8,9 @@ namespace Internal.SDK.SlackMessenger
 
     public class SlackMessengerClient : ClientBase, ISlackMessengerClient
     {
-        public SlackMessengerClient(HttpClient httpClient) : base("http://localhost:5005/", "api/slack-messenger", httpClient) { }
+        public SlackMessengerClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient  = null) : base("http://localhost:5005/", "api/slack-messenger", httpClient, systemLoggerClient) { }
 
-        public SlackMessengerClient() : this(null!) { }
+        //public SlackMessengerClient() : this(null!) { }
 
         public async Task<Response<SendSlackMessageResponseDTO>> SendSlackMessage(SendSlackMessageRequestDTO Payload)
         {
