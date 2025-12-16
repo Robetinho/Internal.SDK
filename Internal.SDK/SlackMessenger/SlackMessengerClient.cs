@@ -19,7 +19,7 @@ namespace Internal.SDK.SlackMessenger
 
         public async Task<bool> SendSlackMessage(string slackChannelName, string message)
         {
-            return (await SendSlackMessage(new SendSlackMessageRequestDTO { Message = message, SlackChannelName = slackChannelName })).Item.Success;
+            return (await SendSlackMessage(new SendSlackMessageRequestDTO { Message = message, SlackChannelName = slackChannelName })).Item?.Success ?? false;
         }
     }
 }

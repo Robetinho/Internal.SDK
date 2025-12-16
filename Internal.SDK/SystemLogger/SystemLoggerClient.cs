@@ -11,12 +11,11 @@ namespace Internal.SDK.SystemLogger
 
         private readonly string _applicationName;
 
-        public SystemLoggerClient(IHostEnvironment hostEnvironment, HttpClient httpClient) : base("http://localhost:5006/", "api/system-logger", httpClient)
-        { 
+        public SystemLoggerClient(IHostEnvironment hostEnvironment, HttpClient? httpClient = null) : base("http://localhost:5006/", "api/system-logger", httpClient)
+        {  
             _applicationName = hostEnvironment.ApplicationName; 
         }
-
-        public SystemLoggerClient(IHostEnvironment hostEnvironment) : this(hostEnvironment, null!) { }
+         
 
         private async Task<Response<LogResponseDTO>> Log(LogRequestDTO Payload)
         { 
