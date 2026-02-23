@@ -7,7 +7,7 @@ namespace Internal.SDK.AISession
 
     public class AISessionClient : ClientBase, IAISessionClient
     {
-        public AISessionClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base("http://localhost:5002/", "api/ai-session", httpClient, systemLogger) { }
+        public AISessionClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base("http://localhost:5002/", "api/ai-session", httpClient, systemLoggerClient) { }
 
         //public AISessionClient() : this(null!) { } 
 
