@@ -2,6 +2,7 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Internal.SDK.Base
 {
@@ -69,12 +70,32 @@ namespace Internal.SDK.Base
             try
             {
                 HttpResponseMessage response = await _httpClient.SendAsync(request);
+
+
                 result.IsSuccess = response.IsSuccessStatusCode;
+
                 result.ResponseCode = (int)response.StatusCode;
-                result.Item = await response.Content.ReadFromJsonAsync<T>();
+                if (result.IsSuccess)
+                {
+                    result.Item = await response.Content.ReadFromJsonAsync<T>();
+                }
+                else
+                {
+                    var json = await response.Content.ReadAsStringAsync();
+                    var doc = JsonDocument.Parse(json);
+                     
+                    var typeName = doc.RootElement.GetProperty("type").GetString();
+                    var targetType = Type.GetType(typeName!) ?? typeof(Exception);
+                     
+                    var detailsJson = doc.RootElement.GetProperty("details").GetRawText();
+                     
+                    result.Error = (Exception)JsonSerializer.Deserialize(detailsJson, targetType)!;
+                }
             }
             catch (Exception ex)
             {
+                result.Error = ex;
+                 
                 result.IsSuccess = false;
 
                 if (_systemLoggerClient != null)

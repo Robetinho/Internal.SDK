@@ -18,6 +18,9 @@
         internal string? _queryString { get; init; }
 
         internal ClientBase? _clientBase { get; init; }
+         
+        public Exception? Error { get; set; }
+         
 
         public async Task RetryIfFailed(int retryAttemps = 1, int waitTime = 100)
         {

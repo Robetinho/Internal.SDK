@@ -13,9 +13,15 @@ namespace Internal.SDK.Base
                 var result = await operation();
                 return Ok(result); // JsonResult is part of Microsoft.AspNetCore.Mvc
             }
-            catch
+            catch (Exception error)
             {
-                return StatusCode(500, new { error = "An error occurred processing the request." });
+                var payload = new
+                {
+                    type = error.GetType().FullName,
+                    details = error
+                };
+
+                return StatusCode(500, payload);
             }
         }
     }
