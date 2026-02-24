@@ -1,4 +1,5 @@
 ﻿using Internal.SDK.SystemLogger;
+using System;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -98,12 +99,12 @@ namespace Internal.SDK.Base
                     Console.WriteLine("targetType:" + targetType.ToString());
                     var detailsJson = doc.RootElement.GetProperty("details").GetRawText();
                      
-                    result.Error = (Exception)JsonSerializer.Deserialize(detailsJson, targetType)!;
+                    result.Error = (ServiceException)JsonSerializer.Deserialize(detailsJson, targetType)!;
                 }
             }
             catch (Exception ex)
             {
-                result.Error = ex;
+                result.Error = new ServiceException(ex.Message);
                  
                 result.IsSuccess = false;
 
