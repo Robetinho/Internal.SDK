@@ -10,12 +10,9 @@ namespace Internal.SDK.Base
     public class ServiceException : Exception
     {
         [JsonInclude]
-        [JsonPropertyName("message")]
-        internal string? ErrorMessage { get; set; }
+        internal string? ErrorMessage { get; set; }  // JSON name = "ErrorMessage"
 
-        public ServiceException()
-        {
-        }
+        public ServiceException() { }
 
         public ServiceException(string message)
             : base(message)
