@@ -79,7 +79,7 @@ namespace Internal.SDK.Base
             {
                 HttpResponseMessage response = await _httpClient.SendAsync(request);
 
-
+                Console.WriteLine("Response content: " + response.Content);
                 result.IsSuccess = response.IsSuccessStatusCode;
 
                 result.ResponseCode = (int)response.StatusCode;
@@ -104,6 +104,8 @@ namespace Internal.SDK.Base
             }
             catch (Exception ex)
             {
+
+                Console.WriteLine("exception thrown");
                 result.Error = new ServiceException(ex.Message);
                  
                 result.IsSuccess = false;
