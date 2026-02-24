@@ -87,7 +87,8 @@ namespace Internal.SDK.Base
                      
                     var typeName = doc.RootElement.GetProperty("type").GetString();
                     var targetType = Type.GetType(typeName!) ?? typeof(Exception);
-                     
+
+                    Console.WriteLine("targetType:" + targetType.ToString());
                     var detailsJson = doc.RootElement.GetProperty("details").GetRawText();
                      
                     result.Error = (Exception)JsonSerializer.Deserialize(detailsJson, targetType)!;
