@@ -56,7 +56,14 @@ namespace Internal.SDK.Base
 
         internal async Task<Response<T>> GetResponse<T>(HttpMethod httpMethod, string path, string body, string queryString)
         {
+
+
+            Console.WriteLine("GetResponse hit");
+
             var request = GetBaseRequest(httpMethod, path, body, queryString);
+
+
+
 
             var result = new Response<T>
             {
