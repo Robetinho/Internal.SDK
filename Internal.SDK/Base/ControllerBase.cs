@@ -17,7 +17,7 @@ namespace Internal.SDK.Base
             { 
 
                 var exception = new ServiceException(error.Message);
-              
+               
                 var payload = new
                 {
                     type = exception.GetType().FullName,

@@ -2,16 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace Internal.SDK.Base
 {
     public class ServiceException : Exception
-    {  
-        internal ServiceException(  string message)
-            : base(message)
-        { 
+    {
+        [JsonInclude]
+        [JsonPropertyName("message")]
+        internal string? ErrorMessage { get; set; }
+
+        public ServiceException()
+        {
         }
+
+        public ServiceException(string message)
+            : base(message)
+        {
+            ErrorMessage = message;
+        }
+
+        public override string Message => ErrorMessage ?? base.Message;
     }
 
     public class InsufficientFundsException : ServiceException
@@ -20,7 +32,7 @@ namespace Internal.SDK.Base
         public decimal CostOfRequest { get; }
 
         public InsufficientFundsException(decimal fundsRemaining, decimal costOfRequest)
-            : base(  "Insufficient funds")
+            : base("Insufficient funds")
         {
             FundsRemaining = fundsRemaining;
             CostOfRequest = costOfRequest;
