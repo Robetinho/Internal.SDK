@@ -20,7 +20,7 @@ namespace Internal.SDK.Base
               
                 var payload = new
                 {
-                    type = error.GetType().FullName,
+                    type = exception.GetType().FullName,
                     details = exception
                 };
                 Console.WriteLine("error type :" + payload.type);
