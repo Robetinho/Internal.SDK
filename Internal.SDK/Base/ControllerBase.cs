@@ -20,7 +20,7 @@ namespace Internal.SDK.Base
                     type = error.GetType().FullName,
                     details = error
                 };
-
+                Console.WriteLine("error type :" + payload.type);
                 return StatusCode(500, payload);
             }
         }

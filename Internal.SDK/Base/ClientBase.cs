@@ -79,9 +79,10 @@ namespace Internal.SDK.Base
                 {
                     result.Item = await response.Content.ReadFromJsonAsync<T>();
                 }
-                else
+                else 
                 {
                     var json = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine("json error resonse:" + json);
                     var doc = JsonDocument.Parse(json);
                      
                     var typeName = doc.RootElement.GetProperty("type").GetString();
