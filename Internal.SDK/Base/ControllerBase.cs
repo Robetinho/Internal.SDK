@@ -14,11 +14,14 @@ namespace Internal.SDK.Base
                 return Ok(result); // JsonResult is part of Microsoft.AspNetCore.Mvc
             }
             catch (Exception error)
-            {
+            { 
+
+                var exception = new ServiceException(error.Message);
+              
                 var payload = new
                 {
                     type = error.GetType().FullName,
-                    details = error
+                    details = exception
                 };
                 Console.WriteLine("error type :" + payload.type);
                 return StatusCode(500, payload);
