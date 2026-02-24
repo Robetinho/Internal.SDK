@@ -79,6 +79,16 @@ namespace Internal.SDK.Base
             {
                 HttpResponseMessage response = await _httpClient.SendAsync(request);
 
+
+                var contentBody = await response.Content.ReadAsStringAsync();
+
+                // <-- Print it so you can see exactly what the server returned
+                Console.WriteLine("Response body:");
+                Console.WriteLine(contentBody);
+
+
+
+
                 Console.WriteLine("Response content: " + response.Content);
                 result.IsSuccess = response.IsSuccessStatusCode;
 
