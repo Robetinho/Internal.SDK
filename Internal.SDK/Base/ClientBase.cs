@@ -78,7 +78,18 @@ namespace Internal.SDK.Base
             try
             {
                 HttpResponseMessage response = await _httpClient.SendAsync(request);
-                 
+
+
+                var contentBody = await response.Content.ReadAsStringAsync();
+
+                // <-- Print it so you can see exactly what the server returned
+                Console.WriteLine("Response body:");
+                Console.WriteLine(contentBody);
+
+
+
+
+                Console.WriteLine("Response content: " + response.Content);
                 result.IsSuccess = response.IsSuccessStatusCode;
 
                 result.ResponseCode = (int)response.StatusCode;
@@ -86,26 +97,27 @@ namespace Internal.SDK.Base
                 {
                     result.Item = await response.Content.ReadFromJsonAsync<T>();
                 }
-                else 
+                else
                 {
                     var json = await response.Content.ReadAsStringAsync();
                     Console.WriteLine("json error resonse:" + json);
                     var doc = JsonDocument.Parse(json);
-                     
+
                     var typeName = doc.RootElement.GetProperty("type").GetString();
                     var targetType = Type.GetType(typeName!) ?? typeof(Exception);
 
                     Console.WriteLine("targetType:" + targetType.ToString());
                     var detailsJson = doc.RootElement.GetProperty("details").GetRawText();
-                     
+
                     result.Error = (ServiceException)JsonSerializer.Deserialize(detailsJson, targetType)!;
                 }
             }
             catch (Exception ex)
             {
-                 
+
+                Console.WriteLine("exception thrown");
                 result.Error = new ServiceException(ex.Message);
-                 
+
                 result.IsSuccess = false;
 
                 if (_systemLoggerClient != null)
