@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Internal.SDK.Base
 {
@@ -13,8 +14,17 @@ namespace Internal.SDK.Base
                 var result = await operation();
                 return Ok(result); // JsonResult is part of Microsoft.AspNetCore.Mvc
             }
+            catch (ServiceException error)
+            {
+                var payload = new
+                {
+                    type = error.GetType().FullName,
+                    details = error
+                }; 
+                return StatusCode(500, payload);
+            }
             catch (Exception error)
-            { 
+            {
 
                 var exception = new ServiceException(error.Message);
                
@@ -22,8 +32,7 @@ namespace Internal.SDK.Base
                 {
                     type = exception.GetType().FullName,
                     details = exception
-                };
-                Console.WriteLine("error type :" + payload.type);
+                }; 
                 return StatusCode(500, payload);
             }
         }

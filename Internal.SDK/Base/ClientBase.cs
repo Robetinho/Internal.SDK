@@ -78,18 +78,7 @@ namespace Internal.SDK.Base
             try
             {
                 HttpResponseMessage response = await _httpClient.SendAsync(request);
-
-
-                var contentBody = await response.Content.ReadAsStringAsync();
-
-                // <-- Print it so you can see exactly what the server returned
-                Console.WriteLine("Response body:");
-                Console.WriteLine(contentBody);
-
-
-
-
-                Console.WriteLine("Response content: " + response.Content);
+                 
                 result.IsSuccess = response.IsSuccessStatusCode;
 
                 result.ResponseCode = (int)response.StatusCode;
@@ -114,8 +103,7 @@ namespace Internal.SDK.Base
             }
             catch (Exception ex)
             {
-
-                Console.WriteLine("exception thrown");
+                 
                 result.Error = new ServiceException(ex.Message);
                  
                 result.IsSuccess = false;

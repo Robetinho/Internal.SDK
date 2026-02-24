@@ -25,8 +25,11 @@ namespace Internal.SDK.Base
 
     public class InsufficientFundsException : ServiceException
     {
-        public decimal FundsRemaining { get; }
-        public decimal CostOfRequest { get; }
+        public decimal FundsRemaining { get; internal set; }
+        public decimal CostOfRequest { get; internal set; }
+
+
+        internal InsufficientFundsException() { }
 
         public InsufficientFundsException(decimal fundsRemaining, decimal costOfRequest)
             : base("Insufficient funds")
