@@ -17,5 +17,14 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+ <ItemGroup>
+   <Folder Include="AISession\Errors\" />
+   <Folder Include="ConversationProtocol\Errors\" />
+   <Folder Include="SlackMessenger\Errors\" />
+   <Folder Include="SlackMessenger\Errors\" />
+   <Folder Include="SystemLogger\Errors\" />
+   <Folder Include="TextToSpeech\Errors\" />
+ </ItemGroup>
+
 
 </Project>

@@ -1,17 +1,19 @@
-﻿using Internal.SDK.ConversationProtocol.DTOs; 
-using Microsoft.AspNetCore.Mvc; 
+﻿using Internal.SDK.Base;
+using Internal.SDK.ConversationProtocol.DTOs; 
+using Microsoft.AspNetCore.Mvc;
+using ControllerBase = Internal.SDK.Base.ControllerBase;
 
-namespace Internal.SDK.Base
+namespace Internal.SDK.ConversationProtocol
 {
     [ApiController]
     [Route("api/conversation-protocol")]
     public abstract class ConversationProtocolControllerBase :  ControllerBase
     {
         [Route("getReply")]
-        [ HttpPost]
+        [HttpPost]
         public async Task<IActionResult> GetReplyRoute([FromBody] MessageDto payload)
         {
-            return await ExecuteSafeAsync(() => GetReply(payload));
+            return await ExecuteSafeAsync<MessageDto, ConversationProtocolException>(() => GetReply(payload));
         }
 
         public abstract Task<MessageDto> GetReply(MessageDto payload);
@@ -20,7 +22,7 @@ namespace Internal.SDK.Base
         [HttpPost]
         public async Task<IActionResult> InitialiseRoute([FromBody] string payload)
         {
-            return await ExecuteSafeAsync(() => Initialise(payload));
+            return await ExecuteSafeAsync<MessageDto, ConversationProtocolException>(() => Initialise(payload));
         }
 
         public abstract Task<MessageDto> Initialise(string clientId);

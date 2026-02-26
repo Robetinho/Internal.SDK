@@ -5,6 +5,6 @@ namespace Internal.SDK.TextToSpeech
 {
     public interface ITextToSpeechClient
     {
-        Task<Response<GetSpeechAudioDataResponseDTO>> GetSpeechAudioData(GetSpeechAudioDataRequestDTO Payload);
+        Task<Response<GetSpeechAudioDataResponseDTO, TextToSpeechError>> GetSpeechAudioData(GetSpeechAudioDataRequestDTO Payload);
     }
 }

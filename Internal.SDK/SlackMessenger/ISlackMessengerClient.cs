@@ -5,7 +5,7 @@ namespace Internal.SDK.SlackMessenger
 {
     public interface ISlackMessengerClient
     {
-        Task<Response<SendSlackMessageResponseDTO>> SendSlackMessage(SendSlackMessageRequestDTO Payload);
+        Task<Response<SendSlackMessageResponseDTO, SlackMessengerError>> SendSlackMessage(SendSlackMessageRequestDTO Payload);
 
         Task<bool> SendSlackMessage(string slackChannelName, string message);
     }

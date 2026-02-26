@@ -1,4 +1,5 @@
-﻿using Internal.SDK.SystemLogger;
+﻿using Internal.SDK.AISession;
+using Internal.SDK.SystemLogger;
 using System;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -7,9 +8,12 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Internal.SDK.Base
 {
-    public abstract class ClientBase
-    {
-        private readonly string key = @"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";
+
+    
+
+    // Add a generic type constraint to ensure TError is ServiceError or a derived type
+    public abstract class ClientBase<TError> where TError : ServiceError 
+    { 
         private readonly string _domain;
         private readonly string _root;
         private readonly HttpClient _httpClient;
@@ -27,7 +31,7 @@ namespace Internal.SDK.Base
         {
             var url = $"{_domain.TrimEnd('/')}/{_root.TrimEnd('/')}/{path.TrimStart('/')}{queryString}";
             var request = new HttpRequestMessage(httpMethod, url);
-
+            
             request.Headers.Add("x-py-sys-api-version", "v2");
 
             request.Content = new StringContent(body);
@@ -35,7 +39,7 @@ namespace Internal.SDK.Base
             return request;
         }
 
-        internal async Task<Response<T>> GetPostResponse<T>(string path, object payload)
+        internal async Task<Response<T, TError>> GetPostResponse<T>(string path, object payload)
         {
             string json = string.Empty;
 
@@ -45,7 +49,7 @@ namespace Internal.SDK.Base
             }
             catch (JsonException ex)
             {
-                return new Response<T>
+                return new Response<T, TError>
                 {
                     IsSuccess = false
                 };
@@ -55,18 +59,14 @@ namespace Internal.SDK.Base
         }
 
 
-        internal async Task<Response<T>> GetResponse<T>(HttpMethod httpMethod, string path, string body, string queryString)
+        internal async Task<Response<T, TError>> GetResponse<T>(HttpMethod httpMethod, string path, string body, string queryString)
         {
-
-
+             
             Console.WriteLine("GetResponse hit");
 
             var request = GetBaseRequest(httpMethod, path, body, queryString);
-
-
-
-
-            var result = new Response<T>
+             
+            var result = new Response<T, TError>
             {
                 _httpMethod = httpMethod,
                 _path = path,
@@ -85,9 +85,7 @@ namespace Internal.SDK.Base
                 // <-- Print it so you can see exactly what the server returned
                 Console.WriteLine("Response body:");
                 Console.WriteLine(contentBody);
-
-
-
+                 
 
                 Console.WriteLine("Response content: " + response.Content);
                 result.IsSuccess = response.IsSuccessStatusCode;
@@ -109,15 +107,15 @@ namespace Internal.SDK.Base
                     Console.WriteLine("targetType:" + targetType.ToString());
                     var detailsJson = doc.RootElement.GetProperty("details").GetRawText();
 
-                    result.Error = (ServiceException)JsonSerializer.Deserialize(detailsJson, targetType)!;
+                    result.Error =   JsonSerializer.Deserialize(detailsJson, targetType) as TError;
                 }
             }
             catch (Exception ex)
             {
 
-                Console.WriteLine("exception thrown");
-                result.Error = new ServiceException(ex.Message);
-
+                Console.WriteLine("exception thrown");  
+                
+                result.Error = ex as TError;  
                 result.IsSuccess = false;
 
                 if (_systemLoggerClient != null)

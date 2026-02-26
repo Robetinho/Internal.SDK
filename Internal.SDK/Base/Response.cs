@@ -1,8 +1,8 @@
 ﻿namespace Internal.SDK.Base
 {
-    public class Response<T>
+    public class Response<TResult, TError> where TError : ServiceError
     {
-        public T? Item { get; set; }
+        public TResult? Item { get; set; }
 
         public bool IsSuccess { get; set; }
 
@@ -17,9 +17,9 @@
 
         internal string? _queryString { get; init; }
 
-        internal ClientBase? _clientBase { get; init; }
+        internal ClientBase<TError>? _clientBase { get; init; }
          
-        public ServiceException? Error { get; set; }
+        public TError? Error { get; set; }
          
 
         public async Task RetryIfFailed(int retryAttemps = 1, int waitTime = 100)
@@ -27,13 +27,13 @@
             if (!this.IsSuccess)
             {
 
-                Response<T> lastResponse = this;
+                Response<TResult, TError> lastResponse = this;
 
                 for (int attempt = 0; attempt < retryAttemps; attempt++)
                 {
                     await Task.Delay(waitTime);
 
-                    lastResponse = await _clientBase!.GetResponse<T>(_httpMethod!, _path!, _body!, _queryString!);
+                    lastResponse = await _clientBase!.GetResponse<TResult>(_httpMethod!, _path!, _body!, _queryString!);
 
                     if (lastResponse.IsSuccess)
                     {

@@ -1,6 +1,7 @@
-﻿using Internal.SDK.SlackMessenger.DTOs; 
+﻿using Internal.SDK.Base;
+using Internal.SDK.ConversationProtocol;
+using Internal.SDK.SlackMessenger.DTOs; 
 using Microsoft.AspNetCore.Mvc;
-using Internal.SDK.Base;
 using ControllerBase = Internal.SDK.Base.ControllerBase;
 
 namespace Internal.SDK.SlackMessenger
@@ -13,7 +14,7 @@ namespace Internal.SDK.SlackMessenger
         [HttpPost]
         public async Task<IActionResult> SendSlackMessageRoute([FromBody] SendSlackMessageRequestDTO Payload)
         {
-            return await  ExecuteSafeAsync(() => SendSlackMessage(Payload));
+            return await  ExecuteSafeAsync<SendSlackMessageResponseDTO, SlackMessengerException>(() => SendSlackMessage(Payload));
         }
 
         public abstract Task<SendSlackMessageResponseDTO> SendSlackMessage(SendSlackMessageRequestDTO Payload);

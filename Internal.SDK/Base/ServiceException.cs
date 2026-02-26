@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -9,33 +11,58 @@ namespace Internal.SDK.Base
 {
     public class ServiceException : Exception
     {
-        [JsonInclude]
-        internal string? ErrorMessage { get; set; }  // JSON name = "ErrorMessage"
 
-        public ServiceException() { }
-
-        public ServiceException(string message)
-            : base(message)
+        internal ServiceException(ServiceError details)
+            : base(details.Message)
         {
-            ErrorMessage = message;
+            Error = details;
         }
 
-        public override string Message => ErrorMessage ?? base.Message;
+        internal ServiceError Error { get; init; }  
+
     }
 
-    public class InsufficientFundsException : ServiceException
+
+    public class ServiceError
     {
-        public decimal FundsRemaining { get; internal set; }
-        public decimal CostOfRequest { get; internal set; }
+        internal ServiceError() { }
 
+        public string? Message { get; init; }
 
-        internal InsufficientFundsException() { }
-
-        public InsufficientFundsException(decimal fundsRemaining, decimal costOfRequest)
-            : base("Insufficient funds")
+        internal virtual ServiceError FromException(Exception ex)
         {
-            FundsRemaining = fundsRemaining;
-            CostOfRequest = costOfRequest;
+            return new ServiceError
+            {
+                Message = ex.Message
+            };
+        }
+
+        // Conversion operator calls the virtual method
+        public static explicit operator ServiceError(Exception ex)
+        {
+            // Create a temporary instance to call the virtual method
+            return new ServiceError().FromException(ex);
         }
     }
+
+
+
+    //public class InsufficientFundsError : ServiceError
+    //{
+    //    public decimal FundsRemaining { get; internal set; }
+    //    public decimal CostOfRequest { get; internal set; }
+
+
+    //    internal InsufficientFundsError() : base("Insufficient funds") { }
+
+    //    public InsufficientFundsError(decimal fundsRemaining, decimal costOfRequest)
+    //        : this()
+    //    {
+    //        FundsRemaining = fundsRemaining;
+    //        CostOfRequest = costOfRequest;
+    //    }
+
+
+
+    //}
 }

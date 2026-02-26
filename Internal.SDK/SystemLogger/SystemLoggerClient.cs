@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Http;
 namespace Internal.SDK.SystemLogger
 {
 
-    public class SystemLoggerClient : ClientBase, ISystemLoggerClient
+    public class SystemLoggerClient : ClientBase<SystemLoggerError>, ISystemLoggerClient
     {
 
         private readonly string _applicationName;
@@ -17,7 +17,7 @@ namespace Internal.SDK.SystemLogger
         }
          
 
-        private async Task<Response<LogResponseDTO>> Log(LogRequestDTO Payload)
+        private async Task<Response<LogResponseDTO, SystemLoggerError>> Log(LogRequestDTO Payload)
         { 
             Payload.ApplicationName = _applicationName;
 
