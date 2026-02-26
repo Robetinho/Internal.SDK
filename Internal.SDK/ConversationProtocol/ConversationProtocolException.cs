@@ -9,7 +9,7 @@ namespace Internal.SDK.ConversationProtocol
 {
     public class ConversationProtocolException : ServiceException
     {
-        internal ConversationProtocolException(ConversationProtocolError errorDetails): base(errorDetails)
+        public ConversationProtocolException(ConversationProtocolError errorDetails): base(errorDetails)
         {
 
         }

@@ -9,7 +9,7 @@ namespace Internal.SDK.SlackMessenger
 {
     public class SlackMessengerException : ServiceException
     {
-        internal SlackMessengerException(SlackMessengerError errorDetails): base(errorDetails)
+        public SlackMessengerException(SlackMessengerError errorDetails): base(errorDetails)
         {
 
         }

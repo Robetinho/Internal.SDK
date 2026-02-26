@@ -9,7 +9,7 @@ namespace Internal.SDK.AISession
 {
     public class AISessionException : ServiceException
     {
-        internal AISessionException(AISessionError errorDetails): base(errorDetails)
+        public AISessionException(AISessionError errorDetails): base(errorDetails)
         {
 
         }

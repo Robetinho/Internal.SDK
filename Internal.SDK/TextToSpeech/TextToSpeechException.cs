@@ -9,7 +9,7 @@ namespace Internal.SDK.TextToSpeech
 {
     public class TextToSpeechException : ServiceException
     {
-        internal TextToSpeechException(TextToSpeechError errorDetails): base(errorDetails)
+        public TextToSpeechException(TextToSpeechError errorDetails): base(errorDetails)
         {
 
         }

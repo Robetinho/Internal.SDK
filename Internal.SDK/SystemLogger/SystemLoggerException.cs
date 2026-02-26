@@ -9,7 +9,7 @@ namespace Internal.SDK.SystemLogger
 {
     public class SystemLoggerException : ServiceException
     {
-        internal SystemLoggerException(SystemLoggerError errorDetails): base(errorDetails)
+        public SystemLoggerException(SystemLoggerError errorDetails): base(errorDetails)
         {
 
         }
