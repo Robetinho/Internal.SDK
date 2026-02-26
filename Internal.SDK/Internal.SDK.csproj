@@ -18,7 +18,6 @@
   </ItemGroup>
 
  <ItemGroup>
-   <Folder Include="AISession\Errors\" />
    <Folder Include="ConversationProtocol\Errors\" />
    <Folder Include="SlackMessenger\Errors\" />
    <Folder Include="SlackMessenger\Errors\" />
