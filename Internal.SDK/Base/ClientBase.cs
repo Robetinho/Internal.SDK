@@ -107,7 +107,24 @@ namespace Internal.SDK.Base
                     Console.WriteLine("targetType:" + targetType.ToString());
                     var detailsJson = doc.RootElement.GetProperty("details").GetRawText();
 
-                    result.Error =   JsonSerializer.Deserialize(detailsJson, targetType) as TError;
+
+                    Console.WriteLine("serialised value = " + detailsJson);
+                    //var asdf = JsonSerializer.Deserialize(detailsJson, targetType);
+
+                    //var sdf = Type.GetType(typeName);
+
+                    //Type errorType = Type.GetType(typeName!) ?? typeof(Exception);
+
+                    // var asdf = JsonSerializer.Deserialize(detailsJson, targetType);
+
+                    // var asdfa =  JsonSerializer.Deserialize(detailsJson, targetType) as errorType;
+                    var dasdfobj =  JsonSerializer.Deserialize(detailsJson, targetType)!;
+
+                    Console.WriteLine("reserialised value = " + JsonSerializer.Serialize(dasdfobj)!);
+                    var dasdf = (TError)dasdfobj;
+
+                    Console.WriteLine("reserialised object = " + JsonSerializer.Serialize(dasdf)!);
+                    result.Error =  dasdf;
                 }
             }
             catch (Exception ex)
