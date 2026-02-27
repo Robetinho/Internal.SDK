@@ -118,7 +118,10 @@ namespace Internal.SDK.Base
                     // var asdf = JsonSerializer.Deserialize(detailsJson, targetType);
 
                     // var asdfa =  JsonSerializer.Deserialize(detailsJson, targetType) as errorType;
-                    var dasdfobj =  JsonSerializer.Deserialize(detailsJson, targetType)!;
+                    var dasdfobj =  JsonSerializer.Deserialize(detailsJson, targetType, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    })!;
 
                     Console.WriteLine("reserialised value = " + JsonSerializer.Serialize(dasdfobj)!);
                     var dasdf = (TError)dasdfobj;
