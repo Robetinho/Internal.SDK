@@ -1,6 +1,7 @@
 ﻿using Internal.SDK.SlackMessenger;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Text.Json;
 
 namespace Internal.SDK.Base
 {
@@ -24,6 +25,9 @@ namespace Internal.SDK.Base
                     type = exception.Error.GetType().FullName,
                     details = exception.Error,
                 };
+
+                Console.WriteLine("serialised value = " + JsonSerializer.Serialize(payload));
+                Console.WriteLine("exported type name = " + exception.Error.GetType().FullName);
                 return StatusCode(500, payload);
             }
             catch (ServiceException exception)
