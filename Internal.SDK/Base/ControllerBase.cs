@@ -18,8 +18,8 @@ namespace Internal.SDK.Base
             }
             catch (TException exception)
             {
-                Console.WriteLine("went to TException"); 
-
+                Console.WriteLine("went to TException");
+                Console.WriteLine("Object deserialise " + JsonSerializer.Serialize((object)exception.Error));
                 var payload = new
                 {
                     type = exception.Error.GetType().FullName,
