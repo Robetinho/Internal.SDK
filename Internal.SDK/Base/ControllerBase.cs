@@ -14,9 +14,22 @@ namespace Internal.SDK.Base
             {  
                 var result = await operation();
                 return Ok(result); // JsonResult is part of Microsoft.AspNetCore.Mvc
-            } 
+            }
+            catch (TException exception)
+            {
+                Console.WriteLine("went to TException"); 
+
+                var payload = new
+                {
+                    type = exception.Error.GetType().FullName,
+                    details = exception.Error,
+                };
+                return StatusCode(500, payload);
+            }
             catch (ServiceException exception)
-            { 
+            {
+                Console.WriteLine("went to ServiceException");
+
                 var payload = new
                 {
                     type = exception.Error.GetType().FullName,
@@ -26,6 +39,7 @@ namespace Internal.SDK.Base
             } 
             catch (Exception exception)
             {
+                Console.WriteLine("went to exception");
                 var error = new ServiceError().FromException(exception);
 
                 var payload = new
