@@ -1,0 +1,14 @@
+using Internal.SDK.CorePractice.DTOs;
+using Internal.SDK.Base;
+
+namespace Internal.SDK.CorePractice
+{
+    public interface ICorePracticeClient
+    {
+        Task<Response<ClientDTO, CorePracticeError>> GetClient(Guid Payload);
+        Task<Response<ClientDTO, CorePracticeError>> UpdateClient(ClientDTO Payload);
+        Task<Response<ClientDTO, CorePracticeError>> InsertClient(ClientDTO Payload);
+        Task<Response<bool, CorePracticeError>> DeleteClient(ClientDTO Payload);
+
+    }
+}

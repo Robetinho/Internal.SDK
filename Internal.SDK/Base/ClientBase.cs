@@ -97,37 +97,17 @@ namespace Internal.SDK.Base
                 }
                 else
                 {
-                    var json = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine("json error resonse:" + json);
+                    var json = await response.Content.ReadAsStringAsync(); 
                     var doc = JsonDocument.Parse(json);
 
                     var typeName = doc.RootElement.GetProperty("type").GetString();
                     var targetType = Type.GetType(typeName!) ?? typeof(Exception);
-
-                    Console.WriteLine("targetType:" + targetType.ToString());
+                     
                     var detailsJson = doc.RootElement.GetProperty("details").GetRawText();
-
-
-                    Console.WriteLine("serialised value = " + detailsJson);
-                    //var asdf = JsonSerializer.Deserialize(detailsJson, targetType);
-
-                    //var sdf = Type.GetType(typeName);
-
-                    //Type errorType = Type.GetType(typeName!) ?? typeof(Exception);
-
-                    // var asdf = JsonSerializer.Deserialize(detailsJson, targetType);
-
-                    // var asdfa =  JsonSerializer.Deserialize(detailsJson, targetType) as errorType;
-                    var dasdfobj =  JsonSerializer.Deserialize(detailsJson, targetType, new JsonSerializerOptions
+                    result.Error = JsonSerializer.Deserialize(detailsJson, targetType, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
-                    })!;
-
-                    Console.WriteLine("reserialised value = " + JsonSerializer.Serialize(dasdfobj)!);
-                    var dasdf = (TError)dasdfobj;
-
-                    Console.WriteLine("reserialised object = " + JsonSerializer.Serialize(dasdf)!);
-                    result.Error =  dasdf;
+                    })! as TError; 
                 }
             }
             catch (Exception ex)
