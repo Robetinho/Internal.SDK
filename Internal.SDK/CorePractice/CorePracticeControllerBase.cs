@@ -12,12 +12,12 @@ namespace Internal.SDK.CorePractice
          
         [Route("deleteClient")]
         [HttpPost]
-        public async Task<IActionResult> DeleteClientRoute([FromBody] ClientDTO Payload)
+        public async Task<IActionResult> DeleteClientRoute([FromBody] Guid Payload)
         {
-            return await ExecuteSafeAsync<string, CorePracticeException>(() => DeleteClient(Payload));
+            return await ExecuteSafeAsync<bool, CorePracticeException>(() => DeleteClient(Payload));
         }
 
-        public abstract Task<string> DeleteClient(ClientDTO Payload);
+        public abstract Task<bool> DeleteClient(Guid Payload);
 
 
         [Route("getClient")]

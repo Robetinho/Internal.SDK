@@ -10,7 +10,7 @@ namespace Internal.SDK.CorePractice
     {
         public CorePracticeClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base("http://localhost:5007/", "api/core-practice", httpClient, systemLoggerClient) { }
 
-        public async Task<Response<bool, CorePracticeError>> DeleteClient(ClientDTO Payload)
+        public async Task<Response<bool, CorePracticeError>> DeleteClient(Guid Payload)
         {
             return await GetPostResponse<bool>("deleteClient", Payload);
         }
@@ -26,9 +26,9 @@ namespace Internal.SDK.CorePractice
             return await GetPostResponse<ClientDTO>("insertClient", Payload);
         }
 
-        public async Task<Response<ClientDTO, CorePracticeError>> UpdateClient(ClientDTO Payload)
+        public async Task<Response<bool, CorePracticeError>> UpdateClient(ClientDTO Payload)
         {
-            return await GetPostResponse<ClientDTO>("updateClient", Payload);
+            return await GetPostResponse<bool>("updateClient", Payload);
         }
     }
 }
