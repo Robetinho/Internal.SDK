@@ -14,7 +14,7 @@ namespace Internal.SDK.SlackMessenger
         [HttpPost]
         public async Task<IActionResult> SendSlackMessageRoute([FromBody] SendSlackMessageRequestDTO Payload)
         {
-            return await  ExecuteSafeAsync<SendSlackMessageResponseDTO, SlackMessengerException>(() => SendSlackMessage(Payload));
+            return await  ExecuteSafeAsync(() => SendSlackMessage(Payload));
         }
 
         public abstract Task<SendSlackMessageResponseDTO> SendSlackMessage(SendSlackMessageRequestDTO Payload);

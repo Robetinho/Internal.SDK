@@ -30,5 +30,10 @@ namespace Internal.SDK.CorePractice
         {
             return await GetPostResponse<bool>("updateClient", Payload);
         }
+         
+        public async Task<Response<string, CorePracticeError>> ExecuteRequest(ExecuteRequestRequestDTO Payload)
+        {
+            return await GetPostResponse<string>("executeRequest", Payload);
+        }  
     }
 }

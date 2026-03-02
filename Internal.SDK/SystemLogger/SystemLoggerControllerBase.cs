@@ -13,7 +13,7 @@ namespace Internal.SDK.SystemLogger
         [HttpPost]
         public async Task<IActionResult> LogRoute([FromBody] LogRequestDTO Payload)
         {
-            return await  ExecuteSafeAsync<LogResponseDTO, SystemLoggerException>(() => Log(Payload));
+            return await  ExecuteSafeAsync(() => Log(Payload));
         }
 
         public abstract Task<LogResponseDTO> Log(LogRequestDTO Payload);

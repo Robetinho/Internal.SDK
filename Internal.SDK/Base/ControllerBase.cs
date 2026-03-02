@@ -9,7 +9,7 @@ namespace Internal.SDK.Base
     public abstract class ControllerBase
         : Microsoft.AspNetCore.Mvc.ControllerBase
     {
-        internal async Task<IActionResult> ExecuteSafeAsync<TResult, TException>(Func<Task<TResult>> operation)  where TException : ServiceException
+        internal async Task<IActionResult> ExecuteSafeAsync<TResult>(Func<Task<TResult>> operation) 
         {
             try
             {  

@@ -13,7 +13,7 @@ namespace Internal.SDK.__Template
         [HttpPost]
         public async Task<IActionResult> GetReplyRoute([FromBody] MessageDto Payload)
         {
-            return await  ExecuteSafeAsync<string, __TemplateException> (() => GetReply(Payload));
+            return await  ExecuteSafeAsync(() => GetReply(Payload));
         }
 
         public abstract Task<string> GetReply(MessageDto Payload);

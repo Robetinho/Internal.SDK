@@ -14,7 +14,7 @@ namespace Internal.SDK.CorePractice
         [HttpPost]
         public async Task<IActionResult> DeleteClientRoute([FromBody] Guid Payload)
         {
-            return await ExecuteSafeAsync<bool, CorePracticeException>(() => DeleteClient(Payload));
+            return await ExecuteSafeAsync(() => DeleteClient(Payload));
         }
 
         public abstract Task<bool> DeleteClient(Guid Payload);
@@ -24,7 +24,7 @@ namespace Internal.SDK.CorePractice
         [HttpPost]
         public async Task<IActionResult> GetClientRoute([FromBody] Guid Payload)
         {
-            return await ExecuteSafeAsync<ClientDTO, CorePracticeException>(() => GetClient(Payload));
+            return await ExecuteSafeAsync(() => GetClient(Payload));
         }
 
         public abstract Task<ClientDTO> GetClient(Guid Payload);
@@ -33,7 +33,7 @@ namespace Internal.SDK.CorePractice
         [HttpPost]
         public async Task<IActionResult> InsertClientRoute([FromBody] ClientDTO Payload)
         {
-            return await ExecuteSafeAsync<ClientDTO, CorePracticeException>(() => InsertClient(Payload));
+            return await ExecuteSafeAsync(() => InsertClient(Payload));
         }
 
         public abstract Task<ClientDTO> InsertClient(ClientDTO Payload);
@@ -42,10 +42,21 @@ namespace Internal.SDK.CorePractice
         [HttpPost]
         public async Task<IActionResult> UpdateClientRoute([FromBody] ClientDTO Payload)
         {
-            return await ExecuteSafeAsync<ClientDTO, CorePracticeException>(() => UpdateClient(Payload));
+            return await ExecuteSafeAsync(() => UpdateClient(Payload));
         }
 
         public abstract Task<ClientDTO> UpdateClient(ClientDTO Payload);
+
+
+
+        [Route("executeRequest")]
+        [HttpPost]
+        public async Task<IActionResult> ExecuteRequestRoute([FromBody] ExecuteRequestRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => ExecuteRequest(Payload));
+        }
+
+        public abstract Task<string> ExecuteRequest(ExecuteRequestRequestDTO Payload);
     }
 
 }

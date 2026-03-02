@@ -13,7 +13,7 @@ namespace Internal.SDK.TextToSpeech
         [HttpPost]
         public async Task<IActionResult> GetSpeechAudioDataRoute([FromBody] GetSpeechAudioDataRequestDTO Payload)
         {
-            return await  ExecuteSafeAsync<GetSpeechAudioDataResponseDTO,TextToSpeechException >(() => GetSpeechAudioData(Payload));
+            return await  ExecuteSafeAsync(() => GetSpeechAudioData(Payload));
         }
 
         public abstract Task<GetSpeechAudioDataResponseDTO> GetSpeechAudioData(GetSpeechAudioDataRequestDTO Payload);

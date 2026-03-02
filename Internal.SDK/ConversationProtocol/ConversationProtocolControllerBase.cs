@@ -13,7 +13,7 @@ namespace Internal.SDK.ConversationProtocol
         [HttpPost]
         public async Task<IActionResult> GetReplyRoute([FromBody] MessageDto payload)
         {
-            return await ExecuteSafeAsync<MessageDto, ConversationProtocolException>(() => GetReply(payload));
+            return await ExecuteSafeAsync(() => GetReply(payload));
         }
 
         public abstract Task<MessageDto> GetReply(MessageDto payload);
@@ -22,7 +22,7 @@ namespace Internal.SDK.ConversationProtocol
         [HttpPost]
         public async Task<IActionResult> InitialiseRoute([FromBody] string payload)
         {
-            return await ExecuteSafeAsync<MessageDto, ConversationProtocolException>(() => Initialise(payload));
+            return await ExecuteSafeAsync(() => Initialise(payload));
         }
 
         public abstract Task<MessageDto> Initialise(string clientId);
