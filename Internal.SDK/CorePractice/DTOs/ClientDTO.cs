@@ -1,4 +1,5 @@
 ﻿
+using CorePracticeServiceAPI.Entities;
 using System.Data;
 
 namespace Internal.SDK.CorePractice.DTOs
@@ -21,7 +22,7 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public string? TenantId { get; init; }
 
-        public ConnectionState   ConnectionStatus { get; init; }
+        public ConnectionStatus ConnectionStatus { get; init; }
 
         public int? RedirectCode { get; init; }
     }
