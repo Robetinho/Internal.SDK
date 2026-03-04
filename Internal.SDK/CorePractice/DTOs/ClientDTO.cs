@@ -1,4 +1,6 @@
 ﻿
+using System.Data;
+
 namespace Internal.SDK.CorePractice.DTOs
 {
     public class ClientDTO
@@ -19,7 +21,7 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public string? TenantId { get; init; }
 
-        public int? ConnectionStatus { get; init; }
+        public ConnectionState   ConnectionStatus { get; init; }
 
         public int? RedirectCode { get; init; }
     }
