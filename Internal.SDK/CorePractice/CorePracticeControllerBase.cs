@@ -62,12 +62,12 @@ namespace Internal.SDK.CorePractice
 
         [Route("listLocations")]
         [HttpPost]
-        public async Task<IActionResult> ListLocationsRoute([FromBody] CorePracticeServiceRequestDTO Payload)
+        public async Task<IActionResult> ListLocationsRoute([FromBody] CorePracticeServiceGetRequestDTO Payload)
         {
             return await ExecuteSafeAsync(() => ListLocations(Payload));
         }
 
-        public abstract Task<ListLocationsResponseDTO[]> ListLocations(CorePracticeServiceRequestDTO Payload);
+        public abstract Task<ListLocationsResponseDTO[]> ListLocations(CorePracticeServiceGetRequestDTO Payload);
     }
 
 }
