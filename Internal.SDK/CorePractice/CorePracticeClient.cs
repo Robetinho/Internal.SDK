@@ -36,9 +36,9 @@ namespace Internal.SDK.CorePractice
             return await GetPostResponse<string>("executeRequest", Payload);
         }
 
-        public async Task<Response<ListLocationsResponseDTO, CorePracticeError>> ListLocations(CorePracticeServiceRequestDTO Payload)
+        public async Task<Response<ListLocationsResponseDTO[], CorePracticeError>> ListLocations(CorePracticeServiceRequestDTO Payload)
         {
-            return await GetPostResponse<ListLocationsResponseDTO>("listLocations", Payload);
+            return await GetPostResponse<ListLocationsResponseDTO[]>("listLocations", Payload);
         }
     }
 }

@@ -67,7 +67,7 @@ namespace Internal.SDK.CorePractice
             return await ExecuteSafeAsync(() => ListLocations(Payload));
         }
 
-        public abstract Task<ListLocationsResponseDTO> ListLocations(CorePracticeServiceRequestDTO Payload);
+        public abstract Task<ListLocationsResponseDTO[]> ListLocations(CorePracticeServiceRequestDTO Payload);
     }
 
 }
