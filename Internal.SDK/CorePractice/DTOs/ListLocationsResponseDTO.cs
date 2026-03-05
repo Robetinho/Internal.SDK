@@ -32,9 +32,9 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public string? Fax { get; init; }
 
-        public double? Latitude { get; init; }
+        public string? Latitude { get; init; }
 
-        public double? Longitude { get; init; }
+        public string? Longitude { get; init; }
 
         public bool IsDeleted { get; init; }
 
