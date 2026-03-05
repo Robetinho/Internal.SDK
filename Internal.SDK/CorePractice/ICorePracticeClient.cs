@@ -9,6 +9,8 @@ namespace Internal.SDK.CorePractice
         Task<Response<bool, CorePracticeError>> UpdateClient(ClientDTO Payload);
         Task<Response<ClientDTO, CorePracticeError>> InsertClient(ClientDTO Payload);
         Task<Response<bool, CorePracticeError>> DeleteClient(Guid Payload);
+        Task<Response<string, CorePracticeError>> ExecuteRequest(ExecuteRequestRequestDTO Payload);
+        Task<Response<ListLocationsResponseDTO, CorePracticeError>> ListLocations(CorePracticeServiceRequestDTO Payload);
 
     }
 }
