@@ -113,11 +113,12 @@ namespace Internal.SDK.Base
             catch (Exception ex)
             {
 
-                Console.WriteLine("exception thrown");  
-                
-                result.Error = ex as TError;  
-                result.IsSuccess = false;
+                Console.WriteLine("exception thrown");
+                Console.WriteLine(ex.Message);
 
+                result.Error =  ex as ServiceError as TError ;  
+                result.IsSuccess = false;
+               
                 if (_systemLoggerClient != null)
                 {
                     _systemLoggerClient.LogAlert($"An error occured when calling the following network call: {httpMethod} {path} Body: {body} QueryString: {queryString} Exception: {ex.Message}", ex.StackTrace);
