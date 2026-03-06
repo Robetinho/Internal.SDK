@@ -9,11 +9,11 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace Internal.SDK.Base
 {
 
-    
+
 
     // Add a generic type constraint to ensure TError is ServiceError or a derived type
-    public abstract class ClientBase<TError> where TError : ServiceError 
-    { 
+    public abstract class ClientBase<TError> where TError : ServiceError
+    {
         private readonly string _domain;
         private readonly string _root;
         private readonly HttpClient _httpClient;
@@ -31,7 +31,7 @@ namespace Internal.SDK.Base
         {
             var url = $"{_domain.TrimEnd('/')}/{_root.TrimEnd('/')}/{path.TrimStart('/')}{queryString}";
             var request = new HttpRequestMessage(httpMethod, url);
-            
+
             request.Headers.Add("x-py-sys-api-version", "v2");
 
             request.Content = new StringContent(body);
@@ -61,11 +61,11 @@ namespace Internal.SDK.Base
 
         internal async Task<Response<T, TError>> GetResponse<T>(HttpMethod httpMethod, string path, string body, string queryString)
         {
-             
+
             Console.WriteLine("GetResponse hit");
 
             var request = GetBaseRequest(httpMethod, path, body, queryString);
-             
+
             var result = new Response<T, TError>
             {
                 _httpMethod = httpMethod,
@@ -85,7 +85,7 @@ namespace Internal.SDK.Base
                 // <-- Print it so you can see exactly what the server returned
                 Console.WriteLine("Response body:");
                 Console.WriteLine(contentBody);
-                 
+
 
                 Console.WriteLine("Response content: " + response.Content);
                 result.IsSuccess = response.IsSuccessStatusCode;
@@ -97,17 +97,17 @@ namespace Internal.SDK.Base
                 }
                 else
                 {
-                    var json = await response.Content.ReadAsStringAsync(); 
+                    var json = await response.Content.ReadAsStringAsync();
                     var doc = JsonDocument.Parse(json);
 
                     var typeName = doc.RootElement.GetProperty("type").GetString();
                     var targetType = Type.GetType(typeName!) ?? typeof(Exception);
-                     
+
                     var detailsJson = doc.RootElement.GetProperty("details").GetRawText();
                     result.Error = JsonSerializer.Deserialize(detailsJson, targetType, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
-                    })! as TError; 
+                    })! as TError;
                 }
             }
             catch (Exception ex)
@@ -115,10 +115,10 @@ namespace Internal.SDK.Base
 
                 Console.WriteLine("exception thrown");
                 Console.WriteLine(ex.Message);
-
-                result.Error =  ex as ServiceError as TError ;  
-                result.IsSuccess = false;
                
+                result.Error = ((ServiceError)ex) as TError;
+                result.IsSuccess = false;
+
                 if (_systemLoggerClient != null)
                 {
                     _systemLoggerClient.LogAlert($"An error occured when calling the following network call: {httpMethod} {path} Body: {body} QueryString: {queryString} Exception: {ex.Message}", ex.StackTrace);
