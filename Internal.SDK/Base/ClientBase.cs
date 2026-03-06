@@ -93,7 +93,15 @@ namespace Internal.SDK.Base
                 result.ResponseCode = (int)response.StatusCode;
                 if (result.IsSuccess)
                 {
-                    result.Item = await response.Content.ReadFromJsonAsync<T>();
+                    if (typeof(T) == typeof(string))
+                    {
+                        object? raw = await response.Content.ReadAsStringAsync();
+                        result.Item = (T)raw!;
+                    }
+                    else
+                    {
+                        result.Item = await response.Content.ReadFromJsonAsync<T>();
+                    }
                 }
                 else
                 {
