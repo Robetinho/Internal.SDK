@@ -11,6 +11,8 @@ namespace Internal.SDK.CorePractice
         Task<Response<bool, CorePracticeError>> DeleteClient(Guid Payload);
         Task<Response<string, CorePracticeError>> ExecuteRequest(ExecuteRequestRequestDTO Payload);
         Task<Response<ListLocationsResponseDTO[], CorePracticeError>> ListLocations(CorePracticeServiceGetRequestDTO Payload);
+        Task<Response<ListAppointmentTypesResponseDTO[], CorePracticeError>> ListAppointmentTypes(CorePracticeServiceGetRequestDTO Payload);
+
 
     }
 }

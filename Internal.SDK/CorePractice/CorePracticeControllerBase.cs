@@ -68,6 +68,15 @@ namespace Internal.SDK.CorePractice
         }
 
         public abstract Task<ListLocationsResponseDTO[]> ListLocations(CorePracticeServiceGetRequestDTO Payload);
+
+        [Route("listAppointmentTypes")]
+        [HttpPost]
+        public async Task<IActionResult> ListAppointmentTypesRoute([FromBody] CorePracticeServiceGetRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => ListAppointmentTypes(Payload));
+        }
+
+        public abstract Task<ListAppointmentTypesResponseDTO[]> ListAppointmentTypes(CorePracticeServiceGetRequestDTO Payload);
     }
 
 }
