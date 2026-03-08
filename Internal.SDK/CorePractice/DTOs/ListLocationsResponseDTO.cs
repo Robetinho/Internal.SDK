@@ -6,16 +6,11 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.CorePractice.DTOs
 {
-    public class ListLocationsResponseDTO
-    {
-        public string Identifier { get; init; }
-
-        public string LocationName { get; init; }
+    public class ListLocationsResponseDTO : LocationSummaryDTO
+    { 
 
         public string? DisplayName { get; init; }
-
-        public string? Description { get; init; }
-
+          
         public string? CompanyName { get; init; }
 
         public string? Abn { get; init; }
@@ -68,9 +63,7 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public string? DisabledMsg { get; init; }
 
-        public string? DisabledTitle { get; init; }
-
-        public string? IpAddress { get; init; }
+        public string? DisabledTitle { get; init; } 
 
         public string? NotificationEmail { get; init; }
 

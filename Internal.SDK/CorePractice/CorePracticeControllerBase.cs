@@ -62,21 +62,67 @@ namespace Internal.SDK.CorePractice
 
         [Route("listLocations")]
         [HttpPost]
-        public async Task<IActionResult> ListLocationsRoute([FromBody] CorePracticeServiceGetRequestDTO Payload)
+        public async Task<IActionResult> ListLocationsRoute([FromBody] CorePracticeCachableServiceRequestDTO Payload)
         {
             return await ExecuteSafeAsync(() => ListLocations(Payload));
         }
 
-        public abstract Task<ListLocationsResponseDTO[]> ListLocations(CorePracticeServiceGetRequestDTO Payload);
+        public abstract Task<ListLocationsResponseDTO[]> ListLocations(CorePracticeCachableServiceRequestDTO Payload);
 
         [Route("listAppointmentTypes")]
         [HttpPost]
-        public async Task<IActionResult> ListAppointmentTypesRoute([FromBody] CorePracticeServiceGetRequestDTO Payload)
+        public async Task<IActionResult> ListAppointmentTypesRoute([FromBody] CorePracticeCachableServiceRequestDTO Payload)
         {
             return await ExecuteSafeAsync(() => ListAppointmentTypes(Payload));
         }
 
-        public abstract Task<ListAppointmentTypesResponseDTO[]> ListAppointmentTypes(CorePracticeServiceGetRequestDTO Payload);
+        public abstract Task<ServiceDTO[]> ListAppointmentTypes(CorePracticeCachableServiceRequestDTO Payload);
+
+        [Route("listProviders")]
+        [HttpPost]
+        public async Task<IActionResult> ListProvidersRoute([FromBody] ListProvidersRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => ListProviders(Payload));
+        }
+
+        public abstract Task<ProviderDTO[]> ListProviders(ListProvidersRequestDTO Payload);
+
+        [Route("searchPatient")]
+        [HttpPost]
+        public async Task<IActionResult> SearchPatientRoute([FromBody] SearchPatientRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => SearchPatient(Payload));
+        }
+
+        public abstract Task<PatientDto[]> SearchPatient(SearchPatientRequestDTO Payload);
+
+        [Route("createPatient")]
+        [HttpPost]
+        public async Task<IActionResult> CreatePatientRoute([FromBody] CreatePatientRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => CreatePatient(Payload));
+        }
+
+        public abstract Task<PatientDto> CreatePatient(CreatePatientRequestDTO Payload);
+
+
+        [Route("listLocationAvailabilitySlots")]
+        [HttpPost]
+        public async Task<IActionResult> ListLocationAvailabilitySlotsRoute([FromBody] ListLocationAvailabilitySlotsRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => ListLocationAvailabilitySlots(Payload));
+        }
+
+        public abstract Task<PatientDto> ListLocationAvailabilitySlots(ListLocationAvailabilitySlotsRequestDTO Payload);
+
+        [Route("listLocationAvailabilities")]
+        [HttpPost]
+        public async Task<IActionResult> ListLocationAvailabilitiesRoute([FromBody] ListLocationAvailabilitiesRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => ListLocationAvailabilities(Payload));
+        }
+
+        public abstract Task<PatientDto> ListLocationAvailabilities(ListLocationAvailabilitiesRequestDTO Payload);
     }
 
 }

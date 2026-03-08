@@ -3,7 +3,7 @@ using Internal.SDK.CorePractice.DTOs.Enums;
 
 namespace Internal.SDK.CorePractice.DTOs
 {
-    public  class CorePracticeServiceGetRequestDTO : CorePracticeServiceRequestDTO
+    public  class CorePracticeCachableServiceRequestDTO : CorePracticeServiceRequestDTO
     {
         public CacheRegime CacheRegime { get; init; } = CacheRegime.IgnoreCache;
 

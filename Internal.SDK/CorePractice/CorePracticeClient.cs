@@ -36,14 +36,41 @@ namespace Internal.SDK.CorePractice
             return await GetPostResponse<string>("executeRequest", Payload);
         }
 
-        public async Task<Response<ListLocationsResponseDTO[], CorePracticeError>> ListLocations(CorePracticeServiceGetRequestDTO Payload)
+        public async Task<Response<ListLocationsResponseDTO[], CorePracticeError>> ListLocations(CorePracticeCachableServiceRequestDTO Payload)
         {
             return await GetPostResponse<ListLocationsResponseDTO[]>("listLocations", Payload);
         }
 
-        public async Task<Response<ListAppointmentTypesResponseDTO[], CorePracticeError>> ListAppointmentTypes(CorePracticeServiceGetRequestDTO Payload)
+        public async Task<Response<ServiceDTO[], CorePracticeError>> ListAppointmentTypes(CorePracticeCachableServiceRequestDTO Payload)
         {
-            return await GetPostResponse<ListAppointmentTypesResponseDTO[]>("listAppointmentTypes", Payload);
+            return await GetPostResponse<ServiceDTO[]>("listAppointmentTypes", Payload);
         }
+
+        public async Task<Response<ProviderDTO[], CorePracticeError>> ListProviders(ListProvidersRequestDTO Payload)
+        {
+            return await GetPostResponse<ProviderDTO[]>("listProviders", Payload);
+        }
+
+        public async Task<Response<PatientDto[], CorePracticeError>> SearchPatient(SearchPatientRequestDTO Payload)
+        {
+            return await GetPostResponse<PatientDto[]>("searchPatient", Payload);
+        }
+
+        public async Task<Response<PatientDto, CorePracticeError>> CreatePatient(CreatePatientRequestDTO Payload)
+        {
+            return await GetPostResponse<PatientDto>("createPatient", Payload);
+        }
+
+        public async Task<Response<ListLocationAvailabilitySlotsResponseDTO, CorePracticeError>> ListLocationAvailabilitySlots(ListLocationAvailabilitySlotsRequestDTO Payload)
+        {
+            return await GetPostResponse<ListLocationAvailabilitySlotsResponseDTO>("listLocationAvailabilitySlots", Payload);
+        }
+
+
+        public async Task<Response<ListLocationAvailabilitiesRequestDTO, CorePracticeError>> ListLocationAvailabilities(ListLocationAvailabilitiesResponseDTO Payload)
+        {
+            return await GetPostResponse<ListLocationAvailabilitiesRequestDTO>("listLocationAvailabilities", Payload);
+        }
+
     }
 }

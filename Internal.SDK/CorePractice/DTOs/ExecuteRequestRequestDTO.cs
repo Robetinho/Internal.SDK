@@ -3,7 +3,7 @@ using Internal.SDK.CorePractice.DTOs.Enums;
 
 namespace Internal.SDK.CorePractice.DTOs
 {
-    public class ExecuteRequestRequestDTO : CorePracticeServiceGetRequestDTO
+    public class ExecuteRequestRequestDTO : CorePracticeCachableServiceRequestDTO
     {  
         public required HttpMethod HttpMethod { get; init; }
 
