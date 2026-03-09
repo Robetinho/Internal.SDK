@@ -85,7 +85,7 @@ namespace Internal.SDK.CorePractice.DTOs
 
             public bool? IsActive { get; init; }
 
-            public DateTime? TimeCancel { get; init; }
+            public int? TimeCancel { get; init; }
 
             public string? ProfileUrl { get; init; }
 
