@@ -61,15 +61,15 @@ namespace Internal.SDK.CorePractice
             return await GetPostResponse<PatientDto>("createPatient", Payload);
         }
 
-        public async Task<Response<ListLocationAvailabilitySlotsResponseDTO, CorePracticeError>> ListLocationAvailabilitySlots(ListLocationAvailabilitySlotsRequestDTO Payload)
+        public async Task<Response<ListLocationAvailabilitySlotsResponseDTO[], CorePracticeError>> ListLocationAvailabilitySlots(ListLocationAvailabilitySlotsRequestDTO Payload)
         {
-            return await GetPostResponse<ListLocationAvailabilitySlotsResponseDTO>("listLocationAvailabilitySlots", Payload);
+            return await GetPostResponse<ListLocationAvailabilitySlotsResponseDTO[]>("listLocationAvailabilitySlots", Payload);
         }
 
 
-        public async Task<Response<ListLocationAvailabilitiesRequestDTO, CorePracticeError>> ListLocationAvailabilities(ListLocationAvailabilitiesResponseDTO Payload)
+        public async Task<Response<ListLocationAvailabilitiesRequestDTO[], CorePracticeError>> ListLocationAvailabilities(ListLocationAvailabilitiesResponseDTO Payload)
         {
-            return await GetPostResponse<ListLocationAvailabilitiesRequestDTO>("listLocationAvailabilities", Payload);
+            return await GetPostResponse<ListLocationAvailabilitiesRequestDTO[]>("listLocationAvailabilities", Payload);
         }
 
     }
