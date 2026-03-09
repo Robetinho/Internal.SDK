@@ -113,7 +113,7 @@ namespace Internal.SDK.CorePractice
             return await ExecuteSafeAsync(() => ListLocationAvailabilitySlots(Payload));
         }
 
-        public abstract Task<PatientDto> ListLocationAvailabilitySlots(ListLocationAvailabilitySlotsRequestDTO Payload);
+        public abstract Task<ListLocationAvailabilitySlotsResponseDTO> ListLocationAvailabilitySlots(ListLocationAvailabilitySlotsRequestDTO Payload);
 
         [Route("listLocationAvailabilities")]
         [HttpPost]
@@ -122,7 +122,7 @@ namespace Internal.SDK.CorePractice
             return await ExecuteSafeAsync(() => ListLocationAvailabilities(Payload));
         }
 
-        public abstract Task<ListLocationAvailabilitySlotsResponseDTO> ListLocationAvailabilities(ListLocationAvailabilitiesRequestDTO Payload);
+        public abstract Task<ListLocationAvailabilitiesResponseDTO> ListLocationAvailabilities(ListLocationAvailabilitiesRequestDTO Payload);
     }
 
 }
