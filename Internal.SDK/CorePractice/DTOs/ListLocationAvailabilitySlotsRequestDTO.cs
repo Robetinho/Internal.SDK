@@ -8,9 +8,13 @@ namespace Internal.SDK.CorePractice.DTOs
 {
     public class ListLocationAvailabilitySlotsRequestDTO : CorePracticeCachableServiceRequestDTO
     {
-        public required DateTime Start { get; init; }
+        public required DateOnly StartDate { get; init; }
         
-        public required DateTime End { get; init; }
+        public required DateOnly EndDate { get; init; }
+
+        public required TimeOnly StartTime { get; init; }
+
+        public required TimeOnly EndTime { get; init; }
 
         public required int Duration { get; init; }
          
