@@ -122,7 +122,7 @@ namespace Internal.SDK.CorePractice
             return await ExecuteSafeAsync(() => ListLocationAvailabilities(Payload));
         }
 
-        public abstract Task<PatientDto> ListLocationAvailabilities(ListLocationAvailabilitiesRequestDTO Payload);
+        public abstract Task<ListLocationAvailabilitySlotsResponseDTO> ListLocationAvailabilities(ListLocationAvailabilitiesRequestDTO Payload);
     }
 
 }
