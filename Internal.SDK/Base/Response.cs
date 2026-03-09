@@ -39,7 +39,7 @@
                     {
                         if (_clientBase._systemLoggerClient != null)
                         {
-                            _clientBase._systemLoggerClient.LogAlert($"The retry attemp of the call: {_httpMethod!} {_path} Body: {_body} QueryString: {_queryString} executed successfully");
+                            _clientBase._systemLoggerClient.LogAlert($"The retry attempt of the call: {_httpMethod!} {_path} Body: {_body} QueryString: {_queryString} executed successfully");
                         }
                         break;
                     }

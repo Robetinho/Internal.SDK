@@ -8,7 +8,7 @@ namespace Internal.SDK.CorePractice.DTOs
 {
     public class PatientDto
     {
-        public string Identifier { get; init; }
+        public required string Identifier { get; init; }
 
         public string? PatientNo { get; init; }
 
@@ -74,9 +74,9 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public string? ContactRelationship { get; init; }
 
-        public List<string>? Messages { get; init; }
+        public List<MessageDto>? Messages { get; init; }
 
-        public PatientLoginDto? PatientLogin { get; init; }
+        public PatientLoginDTO? PatientLogin { get; init; }
 
         public string? FamilyRole { get; init; }
 
@@ -104,7 +104,7 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public string? ProfileMedia { get; init; }
 
-        public string? CategoryLabel { get; init; }
+        public CategoryLabelDTO? CategoryLabel { get; init; }
 
         public DateTime? MedicalFormSubmitDateUtc { get; init; }
 
@@ -116,11 +116,6 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public bool? HasNewMessages { get; init; }
 
-        public class PatientLoginDto
-        {
-            public string? UserName { get; init; }
-
-            public DateTime? LastLoginDateUtc { get; init; }
-        }
+      
     }
 }
