@@ -62,7 +62,7 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public ProviderDTO? Provider { get; init; }  
 
-        public CalendarDto? Calendar { get; init; }
+        public CalendarSummaryDTO? Calendar { get; init; }
 
         public object? OnlineAppointment { get; init; }  // null for now
 
@@ -73,24 +73,7 @@ namespace Internal.SDK.CorePractice.DTOs
         public List<MessageDto>? Messages { get; init; }
 
         public List<object>? Envelopes { get; init; }
-
          
-        public class CalendarDto
-        {
-            public string Identifier { get; init; }
-
-            public string? Description { get; init; }
-
-            public string? DisplayName { get; init; }
-
-            public bool? IsActive { get; init; }
-
-            public int? TimeCancel { get; init; }
-
-            public string? ProfileUrl { get; init; }
-
-            public int? Order { get; init; }
-        }
 
         public class MessageDto
         {
