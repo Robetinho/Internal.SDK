@@ -29,6 +29,6 @@ namespace Internal.SDK.CorePractice.DTOs
 
         public ProviderSummaryDTO? Provider { get; init; }
 
-        public CalendarSummaryDTO? Calendar { get; init; }
+        public CalendarDTO? Calendar { get; init; }
     }
 }
