@@ -72,5 +72,10 @@ namespace Internal.SDK.CorePractice
             return await GetPostResponse<ListLocationAvailabilitiesResponseDTO[]>("listLocationAvailabilities", Payload);
         }
 
+        public async Task<Response<ListLocationProviderAvailabilitySlotsResponseDTO[], CorePracticeError>> ListLocationProviderAvailabilitySlots(ListLocationProviderAvailabilitySlotsRequestDTO Payload)
+        {
+            return await GetPostResponse<ListLocationProviderAvailabilitySlotsResponseDTO[]>("listLocationProviderAvailabilitySlots", Payload);
+        }
+
     }
 }

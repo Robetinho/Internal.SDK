@@ -16,6 +16,8 @@ namespace Internal.SDK.CorePractice
         Task<Response<PatientDto[], CorePracticeError>> SearchPatient(SearchPatientRequestDTO Payload);
         Task<Response<ListLocationAvailabilitySlotsResponseDTO[], CorePracticeError>> ListLocationAvailabilitySlots(ListLocationAvailabilitySlotsRequestDTO Payload);
         Task<Response<ListLocationAvailabilitiesResponseDTO[], CorePracticeError>> ListLocationAvailabilities(ListLocationAvailabilitiesRequestDTO Payload);
-        
+        Task<Response<ListLocationProviderAvailabilitySlotsResponseDTO[], CorePracticeError>> ListLocationProviderAvailabilitySlots(ListLocationProviderAvailabilitySlotsRequestDTO Payload);
+
+
     }
 }
