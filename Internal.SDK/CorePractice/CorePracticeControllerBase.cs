@@ -123,7 +123,9 @@ namespace Internal.SDK.CorePractice
         }
 
         public abstract Task<ListLocationAvailabilitiesResponseDTO[]> ListLocationAvailabilities(ListLocationAvailabilitiesRequestDTO Payload);
-        [Route("listLocationAvailabilities")]
+     
+        
+        [Route("listLocationProviderAvailabilitySlots")]
         [HttpPost]
         public async Task<IActionResult> ListLocationProviderAvailabilitySlotsRoute([FromBody] ListLocationProviderAvailabilitySlotsRequestDTO Payload)
         {
