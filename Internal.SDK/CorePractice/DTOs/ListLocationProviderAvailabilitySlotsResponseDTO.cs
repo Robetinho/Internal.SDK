@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.CorePractice.DTOs
 {
-    public class ListLocationAvailabilitySlotsResponseDTO 
+    public class ListLocationProviderAvailabilitySlotsResponseDTO
     {
         public required string Identifier { get; init; }
 
