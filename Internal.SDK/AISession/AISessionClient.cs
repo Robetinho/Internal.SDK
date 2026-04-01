@@ -2,6 +2,7 @@
 using Internal.SDK.Base;
 using Internal.SDK.SlackMessenger;
 using Internal.SDK.SystemLogger;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Internal.SDK.AISession
 {
@@ -20,5 +21,20 @@ namespace Internal.SDK.AISession
         {
             return await GetPostResponse<MessageDto>("initiateSession", Payload);
         }
+
+        public async Task<Response<CreateTrainingFileResponseDTO, AISessionError>> CreateTrainingFile(CreateTrainingFileRequestDTO Payload)
+        {
+            return await GetPostResponse<CreateTrainingFileResponseDTO>("createTrainingFile", Payload);
+        }
+
+        public async Task<Response<bool, AISessionError>> AddTrainingFileItemsToTrainingFile(AddTrainingFileItemsToTrainingFileRequestDTO Payload)
+        {
+            return await GetPostResponse<bool>("addTrainingFileItemsToTrainingFile", Payload);
+        }
+          
+        public async Task<Response<FineTunedModel, AISessionError>> GenerateModelFromTrainingFile(AddTrainingFileItemsToTrainingFileRequestDTO Payload)
+        {
+            return await GetPostResponse<FineTunedModel>("generateModelFromTrainingFile", Payload);
+        } 
     }
 }

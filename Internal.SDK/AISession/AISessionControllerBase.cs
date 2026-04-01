@@ -26,6 +26,36 @@ namespace Internal.SDK.AISession
         }
 
         public abstract Task<MessageDto> InitiateSession(InitiateSessionRequestDTO Payload);
+         
+
+        [Route("createTrainingFile")]
+        [HttpPost]
+        public async Task<IActionResult> CreateTrainingFileRoute([FromBody] CreateTrainingFileRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => CreateTrainingFile(Payload));
+        }
+
+        public abstract Task<CreateTrainingFileResponseDTO> CreateTrainingFile(CreateTrainingFileRequestDTO Payload);
+
+        [Route("addTrainingFileItemsToTrainingFile")]
+        [HttpPost]
+        public async Task<IActionResult> AddTrainingFileItemsToTrainingFileRoute([FromBody] AddTrainingFileItemsToTrainingFileRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => AddTrainingFileItemsToTrainingFile(Payload));
+        }
+
+        public abstract Task<bool> AddTrainingFileItemsToTrainingFile(AddTrainingFileItemsToTrainingFileRequestDTO Payload);
+
+
+        [Route("generateModelFromTrainingFile")]
+        [HttpPost]
+        public async Task<IActionResult> GenerateModelFromTrainingFileRoute([FromBody] AddTrainingFileItemsToTrainingFileRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => GenerateModelFromTrainingFile(Payload));
+        }
+
+        public abstract Task<FineTunedModel> GenerateModelFromTrainingFile(AddTrainingFileItemsToTrainingFileRequestDTO Payload);
+ 
     } 
    
 }
