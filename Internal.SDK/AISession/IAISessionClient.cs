@@ -14,5 +14,7 @@ namespace Internal.SDK.AISession
         Task<Response<bool, AISessionError>> AddTrainingFileItemsToTrainingFile(AddTrainingFileItemsToTrainingFileRequestDTO Payload);
 
         Task<Response<FineTunedModelDTO, AISessionError>> GenerateModelFromTrainingFile(GenerateModelFromTrainingFileDTO Payload);
+
+        Task<Response<FineTunedModelDTO, AISessionError>> GetModel(GetModelDTO Payload);
     }
 }

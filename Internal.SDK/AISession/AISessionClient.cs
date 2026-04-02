@@ -31,10 +31,15 @@ namespace Internal.SDK.AISession
         {
             return await GetPostResponse<bool>("addTrainingFileItemsToTrainingFile", Payload);
         }
-          
+
         public async Task<Response<FineTunedModelDTO, AISessionError>> GenerateModelFromTrainingFile(GenerateModelFromTrainingFileDTO Payload)
         {
             return await GetPostResponse<FineTunedModelDTO>("generateModelFromTrainingFile", Payload);
-        } 
+        }
+
+        public async Task<Response<FineTunedModelDTO, AISessionError>> GetModel(GetModelDTO Payload)
+        {
+            return await GetPostResponse<FineTunedModelDTO>("getModel", Payload);
+        }
     }
 }
