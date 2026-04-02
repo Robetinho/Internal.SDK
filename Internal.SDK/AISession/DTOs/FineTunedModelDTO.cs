@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 namespace Internal.SDK.AISession.DTOs
 {
     public class FineTunedModelDTO
-    {        
+    {
+        public required int FineTunedModelId { get; init; }
+
         public required string Name { get; init; }
 
         public required string Description { get; init; }
