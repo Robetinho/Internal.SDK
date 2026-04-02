@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.AISession.DTOs
 {
-    public class FineTunedModel
+    public class FineTunedModelDTO
     {        
         public required string Name { get; init; }
 

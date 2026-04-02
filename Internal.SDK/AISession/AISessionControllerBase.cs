@@ -49,12 +49,12 @@ namespace Internal.SDK.AISession
 
         [Route("generateModelFromTrainingFile")]
         [HttpPost]
-        public async Task<IActionResult> GenerateModelFromTrainingFileRoute([FromBody] AddTrainingFileItemsToTrainingFileRequestDTO Payload)
+        public async Task<IActionResult> GenerateModelFromTrainingFileRoute([FromBody] GenerateModelFromTrainingFileDTO Payload)
         {
             return await ExecuteSafeAsync(() => GenerateModelFromTrainingFile(Payload));
         }
 
-        public abstract Task<FineTunedModel> GenerateModelFromTrainingFile(AddTrainingFileItemsToTrainingFileRequestDTO Payload);
+        public abstract Task<FineTunedModelDTO> GenerateModelFromTrainingFile(GenerateModelFromTrainingFileDTO Payload);
  
     } 
    
