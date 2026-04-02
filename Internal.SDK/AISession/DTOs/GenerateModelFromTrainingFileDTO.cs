@@ -9,8 +9,10 @@ using System.Threading.Tasks;
 namespace Internal.SDK.AISession.DTOs
 {
     public class GenerateModelFromTrainingFileDTO
-    {        
+    {
         public required int TrainingFileId { get; init; }
+        public required string Name { get; init; }
+        public string? Description { get; init; }
     }
 }
 
