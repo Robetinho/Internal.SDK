@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.AISession.DTOs
 {
-    public class GetModelDTO
+    public class GetFineTunedModelRequestDTO
     {        
-        public required int ModelId { get; init; }
+        public required int FineTunedModelId { get; init; }
     }
 }

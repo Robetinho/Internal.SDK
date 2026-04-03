@@ -37,9 +37,9 @@ namespace Internal.SDK.AISession
             return await GetPostResponse<FineTunedModelDTO>("generateModelFromTrainingFile", Payload);
         }
 
-        public async Task<Response<FineTunedModelDTO, AISessionError>> GetModel(GetModelDTO Payload)
+        public async Task<Response<FineTunedModelDTO, AISessionError>> GetFineTunedModel(GetFineTunedModelRequestDTO Payload)
         {
-            return await GetPostResponse<FineTunedModelDTO>("getModel", Payload);
+            return await GetPostResponse<FineTunedModelDTO>("getFineTunedModel", Payload);
         }
     }
 }

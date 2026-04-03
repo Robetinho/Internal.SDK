@@ -17,8 +17,8 @@ namespace Internal.SDK.AISession.DTOs
         public required string Description { get; init; }
 
         public required int TrainingFileId { get; init; }
-
-        public string? ModelId { get; init; }
+        
+        public string? ModelId { get; init; }        
 
         public ModelGenerationStatus? Status { get; init; }
          
