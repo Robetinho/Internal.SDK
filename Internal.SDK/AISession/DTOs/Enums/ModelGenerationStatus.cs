@@ -11,6 +11,6 @@ namespace Internal.SDK.AISession.DTOs.Enums
         Validating = 0,
         Running = 1,
         Failed = 2,
-        Success = 3,
+        Succeeded = 3,
     } 
 }
