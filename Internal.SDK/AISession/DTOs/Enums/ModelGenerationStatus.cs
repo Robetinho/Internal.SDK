@@ -12,5 +12,6 @@ namespace Internal.SDK.AISession.DTOs.Enums
         Running = 1,
         Failed = 2,
         Succeeded = 3,
+        Queued = 4,
     } 
 }
