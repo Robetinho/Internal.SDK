@@ -5,11 +5,13 @@ namespace Internal.SDK.AISession.DTOs
 {
     public class ModelTypeDTO
     {
-        public ModelType? ModelType { get; }
+        public ModelTypeDTO()        {         }
 
-        public string? ModelCode { get; }
+        public ModelType? ModelType { get;  init; }
 
-        public int? ModelTypeId { get; }
+        public string? ModelCode { get;  init; }
+
+        public int? ModelTypeId { get;  init; }
 
         public ModelTypeDTO(ModelType modelType)
         {
