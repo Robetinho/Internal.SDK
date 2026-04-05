@@ -1,4 +1,6 @@
-﻿ 
+﻿
+using Internal.SDK.AISession.DTOs.Enums;
+
 namespace Internal.SDK.AISession.DTOs
 {
     public class MessageDto

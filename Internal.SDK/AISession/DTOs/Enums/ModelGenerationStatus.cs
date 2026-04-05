@@ -8,7 +8,7 @@ namespace Internal.SDK.AISession.DTOs.Enums
 {
     public enum ModelGenerationStatus
     {        
-        Validating = 0,
+        Validating_files = 0,
         Running = 1,
         Failed = 2,
         Succeeded = 3,

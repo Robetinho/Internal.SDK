@@ -1,4 +1,4 @@
-﻿ namespace Internal.SDK.AISession.DTOs
+﻿namespace Internal.SDK.AISession.DTOs.Enums
 {
     public enum MessageType
     {

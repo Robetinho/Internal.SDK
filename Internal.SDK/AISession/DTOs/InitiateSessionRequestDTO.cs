@@ -11,7 +11,7 @@ namespace Internal.SDK.AISession.DTOs
     public class InitiateSessionRequestDTO
     {
 
-        public required ModelType ModelType { get; init; } = ModelType.GPT_4_1;
+        public required ModelTypeDTO ModelType { get; init; }
 
         public Guid? SessionId { get; init; }
 
