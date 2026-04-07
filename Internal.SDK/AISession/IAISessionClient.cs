@@ -16,5 +16,7 @@ namespace Internal.SDK.AISession
         Task<Response<FineTunedModelDTO, AISessionError>> GenerateModelFromTrainingFile(GenerateModelFromTrainingFileDTO Payload);
 
         Task<Response<FineTunedModelDTO, AISessionError>> GetFineTunedModel(GetFineTunedModelRequestDTO Payload);
+
+        Task<Response<TrainingFileDTO, AISessionError>> GetTrainingFile(GetTrainingFileRequestDTO Payload);
     }
 }

@@ -65,6 +65,15 @@ namespace Internal.SDK.AISession
 
         public abstract Task<FineTunedModelDTO> GetFineTunedModel(GetFineTunedModelRequestDTO Payload);
 
-    } 
-   
+        [Route("getTrainingFile")]
+        [HttpPost]
+        public async Task<IActionResult> GetTrainingFileRoute([FromBody] GetTrainingFileRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => GetTrainingFile(Payload));
+        }
+
+        public abstract Task<TrainingFileDTO> GetTrainingFile(GetTrainingFileRequestDTO Payload);
+
+    }
+
 }
