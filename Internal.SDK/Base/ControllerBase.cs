@@ -17,8 +17,7 @@ namespace Internal.SDK.Base
                 return Ok(result); // JsonResult is part of Microsoft.AspNetCore.Mvc
             }  
             catch (ServiceException exception)
-            {
-                Console.WriteLine("went to ServiceException");
+            { 
 
                 var payload = new
                 {
@@ -28,8 +27,7 @@ namespace Internal.SDK.Base
                 return StatusCode(500, payload);
             } 
             catch (Exception exception)
-            {
-                Console.WriteLine("went to exception");
+            { 
                 var error = new ServiceError().FromException(exception);
 
                 var payload = new

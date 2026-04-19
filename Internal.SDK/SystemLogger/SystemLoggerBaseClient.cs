@@ -1,19 +1,22 @@
 ﻿using Internal.SDK.Base;
 using Internal.SDK.SystemLogger.DTOs;
-using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 namespace Internal.SDK.SystemLogger
 {
 
-    public class SystemLoggerClient : ClientBase<SystemLoggerError>, ISystemLoggerClient
+    public class SystemLoggerBaseClient : ClientBase<SystemLoggerError>, ISystemLoggerClient
     {
 
         private readonly string _applicationName;
 
-        public SystemLoggerClient(IHostEnvironment hostEnvironment, HttpClient? httpClient = null) : base("http://localhost:5006/", "api/system-logger", httpClient)
-        {  
-            _applicationName = hostEnvironment.ApplicationName; 
+        public SystemLoggerBaseClient(string domain, HttpClient? httpClient = null) : base(domain , "api/system-logger", httpClient)
+        {
+            _applicationName = Assembly.GetExecutingAssembly().FullName;
+
+
         }
          
 

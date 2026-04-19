@@ -5,13 +5,14 @@ using Internal.SDK.SystemLogger;
 namespace Internal.SDK.TextToSpeech 
 {
 
-    public class TextToSpeechClient : ClientBase<TextToSpeechError>, ITextToSpeechClient
+    public 
+        
+        class TextToSpeechBaseClient : ClientBase<TextToSpeechError>, ITextToSpeechClient 
     {   
-        public TextToSpeechClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base("http://localhost:5004/", "api/text-to-speech", httpClient, systemLoggerClient) { }
-          
-           
+        internal TextToSpeechBaseClient(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null  ) : base(domain, "api/text-to-speech", httpClient, systemLoggerClient) { }
+         
         public async Task<Response<GetSpeechAudioDataResponseDTO, TextToSpeechError>> GetSpeechAudioData(GetSpeechAudioDataRequestDTO Payload)
-        {
+        { 
             return await GetPostResponse<GetSpeechAudioDataResponseDTO>("getSpeechAudioData", Payload);
         }
     }

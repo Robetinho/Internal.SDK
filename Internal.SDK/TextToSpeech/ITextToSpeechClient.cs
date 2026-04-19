@@ -3,7 +3,7 @@ using Internal.SDK.Base;
 
 namespace Internal.SDK.TextToSpeech
 {
-    public interface ITextToSpeechClient
+    public interface ITextToSpeechClient 
     {
         Task<Response<GetSpeechAudioDataResponseDTO, TextToSpeechError>> GetSpeechAudioData(GetSpeechAudioDataRequestDTO Payload);
     }

@@ -6,9 +6,9 @@ using Internal.SDK.SystemLogger.DTOs;
 namespace Internal.SDK.SlackMessenger
 {
 
-    public class SlackMessengerClient : ClientBase<SlackMessengerError>, ISlackMessengerClient
+    public abstract class SlackMessengerBaseClient : ClientBase<SlackMessengerError>, ISlackMessengerClient
     {
-        public SlackMessengerClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient  = null) : base("http://localhost:5005/", "api/slack-messenger", httpClient, systemLoggerClient) { }
+        internal SlackMessengerBaseClient(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient  = null) : base(domain, "api/slack-messenger", httpClient, systemLoggerClient) { }
 
         //public SlackMessengerClient() : this(null!) { }
 

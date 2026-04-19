@@ -11,9 +11,9 @@ using System.Text.Json;
 namespace Internal.SDK.ConversationProtocol
 {
 
-    public class ConversationProtocolClient : ClientBase<ConversationProtocolError>
+    public abstract class ConversationProtocolBaseClient : ClientBase<ConversationProtocolError>, IConversationProtocolClient
     {  
-        public ConversationProtocolClient(HttpClient httpClient, ISystemLoggerClient systemLogger) : base("http://localhost:5000/", "api/conversation-protocol", httpClient, systemLogger) { }
+        internal ConversationProtocolBaseClient(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLogger = null) : base(domain, "api/conversation-protocol", httpClient, systemLogger) { }
 
         public async Task<Response<MessageDto, ConversationProtocolError>> GetReply(MessageDto payload)
         {

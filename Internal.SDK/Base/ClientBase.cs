@@ -1,6 +1,9 @@
 ﻿using Internal.SDK.AISession;
 using Internal.SDK.SystemLogger;
+using Microsoft.Extensions.Hosting;
+using Microsoft.VisualBasic;
 using System;
+using System.ComponentModel;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json;
@@ -8,16 +11,39 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Internal.SDK.Base
 {
+    internal interface IServiceClient
+    {
+        //abstract static IServiceInfo Create(string domain, string root, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null);
 
+        internal void Injector(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null);
+
+
+    }
 
 
     // Add a generic type constraint to ensure TError is ServiceError or a derived type
-    public abstract class ClientBase<TError> where TError : ServiceError
+    public abstract class ClientBase<TError> : IServiceClient where TError : ServiceError
     {
+        //static IServiceInfo IServiceInfo.Create(string domain, string root, HttpClient? httpClient, ISystemLoggerClient? systemLoggerClient)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+
+
+
+        public virtual void Injector(HttpClient? httpClient, ISystemLoggerClient? systemLoggerClient)
+        {
+            _httpClient = httpClient;
+            _systemLoggerClient = systemLoggerClient;
+        }
+
+
         private readonly string _domain;
         private readonly string _root;
-        private readonly HttpClient _httpClient;
-        internal readonly ISystemLoggerClient? _systemLoggerClient;
+        private HttpClient? _httpClient;
+        internal ISystemLoggerClient? _systemLoggerClient;
+
 
         internal ClientBase(string domain, string root, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null)
         {
@@ -77,7 +103,7 @@ namespace Internal.SDK.Base
 
             try
             {
-                HttpResponseMessage response = await _httpClient.SendAsync(request);
+                HttpResponseMessage response = await (_httpClient ?? new HttpClient()).SendAsync(request);
 
 
                 var contentBody = await response.Content.ReadAsStringAsync();
@@ -123,7 +149,7 @@ namespace Internal.SDK.Base
 
                 Console.WriteLine("exception thrown");
                 Console.WriteLine(ex.Message);
-               
+
                 result.Error = ((ServiceError)ex) as TError;
                 result.IsSuccess = false;
 
@@ -135,6 +161,7 @@ namespace Internal.SDK.Base
 
             return result;
         }
+
     }
 
 }

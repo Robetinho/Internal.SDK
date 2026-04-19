@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Internal.SDK.AISession
 {
 
-    public class AISessionClient : ClientBase<AISessionError>, IAISessionClient
+    public abstract class AISessionBaseClient : ClientBase<AISessionError>, IAISessionClient
     {
-        public AISessionClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base("http://localhost:5002/", "api/ai-session", httpClient, systemLoggerClient) { }
+        internal AISessionBaseClient(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base(domain, "api/ai-session", httpClient, systemLoggerClient) { }
          
 
         public async Task<Response<string, AISessionError>> GetReply(MessageDto Payload)
