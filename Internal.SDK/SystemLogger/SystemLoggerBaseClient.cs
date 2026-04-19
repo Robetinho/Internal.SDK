@@ -10,11 +10,11 @@ namespace Internal.SDK.SystemLogger
     public class SystemLoggerBaseClient : ClientBase<SystemLoggerError>, ISystemLoggerClient
     {
 
-        private readonly string _applicationName;
+        private readonly string? _applicationName;
 
         public SystemLoggerBaseClient(string domain, HttpClient? httpClient = null) : base(domain , "api/system-logger", httpClient)
         {
-            _applicationName = Assembly.GetExecutingAssembly().FullName;
+            _applicationName = Assembly.GetEntryAssembly()?.GetName().Name;
 
 
         }
