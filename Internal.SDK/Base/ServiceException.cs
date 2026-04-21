@@ -22,12 +22,14 @@ namespace Internal.SDK.Base
 
     }
 
-
+     
     public class ServiceError
     {
         internal ServiceError() { }
 
         public string? Message { get; init; }
+
+        public bool LogError { get; init; } = true;
 
         internal virtual ServiceError FromException(Exception ex)
         {

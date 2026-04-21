@@ -1,19 +1,29 @@
-﻿using Internal.SDK.AISession.DTOs; 
+﻿using Internal.SDK.AISession.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Internal.SDK.Base;
 using ControllerBase = Internal.SDK.Base.ControllerBase;
+using Internal.SDK.SystemLogger;
 
 namespace Internal.SDK.AISession
 {
-    [ApiController]
-    [Route("api/ai-session")] 
-    public abstract class AISessionControllerBase :  ControllerBase
+
+    public abstract class AISessionControllerBase2 : ControllerBase
     {
+        public AISessionControllerBase2(ISystemLoggerClient? systemLoggerClient = null) : base(systemLoggerClient) { }
+    }
+    [ApiController]
+    [Route("api/ai-session")]
+    public abstract class AISessionControllerBase : ControllerBase
+    {
+        internal AISessionControllerBase(ISystemLoggerClient? systemLoggerClient) : base(null)
+        {
+        }
+
         [Route("getReply")]
         [HttpPost]
         public async Task<IActionResult> GetReplyRoute([FromBody] MessageDto Payload)
         {
-            return await  ExecuteSafeAsync (() => GetReply(Payload));
+            return await ExecuteSafeAsync(() => GetReply(Payload));
         }
 
         public abstract Task<string> GetReply(MessageDto Payload);
@@ -26,7 +36,7 @@ namespace Internal.SDK.AISession
         }
 
         public abstract Task<MessageDto> InitiateSession(InitiateSessionRequestDTO Payload);
-         
+
 
         [Route("createTrainingFile")]
         [HttpPost]

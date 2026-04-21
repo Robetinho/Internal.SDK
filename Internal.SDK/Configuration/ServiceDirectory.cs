@@ -30,6 +30,7 @@ namespace Internal.SDK.Configuration
         SlackMessengerServiceAPI = 5005,
         SystemLoggerServiceAPI = 5006,
         CorePracticeServiceAPI = 5007,
+        GoogleTextToSpeechServiceAPI = 5008,
 
     }
 
@@ -49,7 +50,8 @@ namespace Internal.SDK.Configuration
                 RegisterClient<ISlackMessengerClient, SlackMessengerClient>(new ClientConfig { Domain = "http://localhost:5005/", ServiceName = Service.OpenAIServiceAPI });
                 RegisterClient<ISystemLoggerClient, SystemLoggerClient>(new ClientConfig { Domain = "http://localhost:5006/", ServiceName = Service.SystemLoggerServiceAPI });
                 RegisterClient<ICorePracticeClient, CorePracticeClient>(new ClientConfig { Domain = "http://localhost:5007/", ServiceName = Service.CorePracticeServiceAPI });
-                            
+                RegisterClient<ITextToSpeechClient, GoogleTextToSpeechClient>(new ClientConfig { Domain = "http://localhost:5008/", ServiceName = Service.GoogleTextToSpeechServiceAPI });
+
             }
 
         }

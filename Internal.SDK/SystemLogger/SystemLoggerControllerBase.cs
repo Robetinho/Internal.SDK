@@ -9,6 +9,10 @@ namespace Internal.SDK.SystemLogger
     [Route("api/system-logger")] 
     public abstract class SystemLoggerControllerBase :  ControllerBase
     {
+        public SystemLoggerControllerBase() : base(null)
+        {
+        }
+
         [Route("log")]
         [HttpPost]
         public async Task<IActionResult> LogRoute([FromBody] LogRequestDTO Payload)

@@ -13,7 +13,7 @@ namespace Internal.SDK.SystemLogger
     { 
         public SystemLoggerClient() : base(SdkRegistry.GetConfig<SystemLoggerClient>().Domain,  null) { }
 
-        public SystemLoggerClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base(SdkRegistry.GetConfig<SystemLoggerClient>().Domain, httpClient) { }
+        public SystemLoggerClient(HttpClient? httpClient = null) : base(SdkRegistry.GetConfig<SystemLoggerClient>().Domain, httpClient) { }
 
         public override void Injector(HttpClient? httpClient, ISystemLoggerClient? systemLoggerClient)
         {

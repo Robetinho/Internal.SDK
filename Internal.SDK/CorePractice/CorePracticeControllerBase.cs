@@ -1,15 +1,17 @@
-﻿using Internal.SDK.CorePractice.DTOs; 
+﻿using Internal.SDK.CorePractice.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Internal.SDK.Base;
 using ControllerBase = Internal.SDK.Base.ControllerBase;
+using Internal.SDK.SystemLogger;
 
 namespace Internal.SDK.CorePractice
 {
     [ApiController]
-    [Route("api/core-practice")] 
-    public abstract class CorePracticeControllerBase :  ControllerBase
+    [Route("api/core-practice")]
+    public abstract class CorePracticeControllerBase : ControllerBase
     {
-         
+        public CorePracticeControllerBase(ISystemLoggerClient? systemLoggerClient = null) : base(systemLoggerClient) { }
+
         [Route("deleteClient")]
         [HttpPost]
         public async Task<IActionResult> DeleteClientRoute([FromBody] Guid Payload)
@@ -123,8 +125,8 @@ namespace Internal.SDK.CorePractice
         }
 
         public abstract Task<ListLocationAvailabilitiesResponseDTO[]> ListLocationAvailabilities(ListLocationAvailabilitiesRequestDTO Payload);
-     
-        
+
+
         [Route("listLocationProviderAvailabilitySlots")]
         [HttpPost]
         public async Task<IActionResult> ListLocationProviderAvailabilitySlotsRoute([FromBody] ListLocationProviderAvailabilitySlotsRequestDTO Payload)
