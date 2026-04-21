@@ -1,6 +1,7 @@
 ﻿using Internal.SDK.SlackMessenger;
 using Internal.SDK.SystemLogger;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Text.Json;
 
@@ -10,13 +11,11 @@ namespace Internal.SDK.Base
     public abstract class ControllerBase
         : Microsoft.AspNetCore.Mvc.ControllerBase
     {
-
-
-        private readonly ISystemLoggerClient? _systemLoggerClient;
-
+        public ISystemLoggerClient? SystemLogger { get; set; }
+          
         internal ControllerBase(ISystemLoggerClient? systemLoggerClient)
         {
-            _systemLoggerClient = systemLoggerClient;
+            SystemLogger = systemLoggerClient;
         }
 
         internal async Task<IActionResult> ExecuteSafeAsync<TResult>(Func<Task<TResult>> operation) 
@@ -38,12 +37,12 @@ namespace Internal.SDK.Base
                 //if log error set to true and check logger is not null then log
                 //if (exception.Data.l
 
-                if (  exception.Error.LogError && _systemLoggerClient != null)
-                {  
-                    _systemLoggerClient.LogError(exception); 
+                if (  exception.Error.LogError && SystemLogger != null)
+                {
+                    SystemLogger.LogError(exception); 
                 }
 
-                //_systemLoggerClient.LogError()
+                //SystemLogger.LogError()
 
                 return StatusCode(500, payload);
             } 
@@ -58,9 +57,9 @@ namespace Internal.SDK.Base
                 };
 
 
-                if (_systemLoggerClient != null)
+                if (SystemLogger != null)
                 {
-                    _systemLoggerClient.LogError(exception);
+                    SystemLogger.LogError(exception);
                 }
 
                 return StatusCode(500, payload);
