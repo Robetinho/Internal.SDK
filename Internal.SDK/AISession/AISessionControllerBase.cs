@@ -7,17 +7,11 @@ using Internal.SDK.SystemLogger;
 namespace Internal.SDK.AISession
 {
 
-    public abstract class AISessionControllerBase2 : ControllerBase
-    {
-        public AISessionControllerBase2(ISystemLoggerClient? systemLoggerClient = null) : base(systemLoggerClient) { }
-    }
     [ApiController]
     [Route("api/ai-session")]
     public abstract class AISessionControllerBase : ControllerBase
     {
-        internal AISessionControllerBase(ISystemLoggerClient? systemLoggerClient) : base(null)
-        {
-        }
+        public AISessionControllerBase(ISystemLoggerClient? systemLoggerClient) : base(systemLoggerClient) { }
 
         [Route("getReply")]
         [HttpPost]
