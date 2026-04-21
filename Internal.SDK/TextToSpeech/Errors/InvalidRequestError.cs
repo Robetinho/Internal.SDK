@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.TextToSpeech.Errors
 {
-    internal class InvalidRequestError : TextToSpeechError
+    public class InvalidRequestError : TextToSpeechError
     {  
-        public required string Field { get; init; }
+        public string? Field { get; init; }
     }
 }
