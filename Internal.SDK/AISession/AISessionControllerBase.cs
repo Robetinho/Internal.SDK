@@ -11,7 +11,7 @@ namespace Internal.SDK.AISession
     [Route("api/ai-session")]
     public abstract class AISessionControllerBase : ControllerBase
     {
-        public AISessionControllerBase(ISystemLoggerClient? systemLoggerClient) : base(systemLoggerClient) { }
+        public AISessionControllerBase(ISystemLoggerClient? systemLoggerClient = null) : base(systemLoggerClient) { }
 
         [Route("getReply")]
         [HttpPost]
