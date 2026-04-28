@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.AISession.DTOs
 {
-    public class InitiateSessionRequestDTO
+    public class InitiateSessionRequestDTO : GetSingleReplyRequestDTO
     {
          
         public Guid? SessionId { get; init; }
