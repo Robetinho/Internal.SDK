@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.AISession.DTOs
 {
-    public class InitiateSessionRequestDTO
+    public class GetReplyRequestDTO 
     {
+
+        public required Guid SessionId { get; init; }
          
-        public Guid? SessionId { get; init; }
-         
+        public required string Text { get; init; }
     }
 }

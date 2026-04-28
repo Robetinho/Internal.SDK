@@ -8,10 +8,13 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.AISession.DTOs
 {
-    public class InitiateSessionRequestDTO
+    public class GetSingleReplyRequestDTO
     {
-         
-        public Guid? SessionId { get; init; }
-         
+
+        public required ModelTypeDTO ModelType { get; init; } 
+
+        public required string Prompt { get; init; }
+
+        public List<MessageDto>? MessageHistory { get; init; }
     }
 }

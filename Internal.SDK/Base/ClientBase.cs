@@ -87,8 +87,7 @@ namespace Internal.SDK.Base
 
         internal async Task<Response<T, TError>> GetResponse<T>(HttpMethod httpMethod, string path, string body, string queryString)
         {
-
-            Console.WriteLine("GetResponse hit");
+             
 
             var request = GetBaseRequest(httpMethod, path, body, queryString);
 
@@ -107,13 +106,7 @@ namespace Internal.SDK.Base
 
 
                 var contentBody = await response.Content.ReadAsStringAsync();
-
-                // <-- Print it so you can see exactly what the server returned
-                Console.WriteLine("Response body:");
-                Console.WriteLine(contentBody);
-
-
-                Console.WriteLine("Response content: " + response.Content);
+                 
                 result.IsSuccess = response.IsSuccessStatusCode;
 
                 result.ResponseCode = (int)response.StatusCode;

@@ -10,12 +10,18 @@ namespace Internal.SDK.AISession
     public abstract class AISessionBaseClient : ClientBase<AISessionError>, IAISessionClient
     {
         internal AISessionBaseClient(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base(domain, "api/ai-session", httpClient, systemLoggerClient) { }
-         
 
-        public async Task<Response<string, AISessionError>> GetReply(MessageDto Payload)
+
+        public async Task<Response<string, AISessionError>> GetReply(GetReplyRequestDTO Payload)
         {
             return await GetPostResponse<string>("getReply", Payload);
         }
+
+        public async Task<Response<string, AISessionError>> GetSingleReply(GetSingleReplyRequestDTO Payload)
+        {
+            return await GetPostResponse<string>("getSingleReply", Payload);
+        }
+
         public async Task<Response<MessageDto, AISessionError>> InitiateSession(InitiateSessionRequestDTO Payload)
         {
             return await GetPostResponse<MessageDto>("initiateSession", Payload);
