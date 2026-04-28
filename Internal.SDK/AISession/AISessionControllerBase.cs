@@ -29,7 +29,7 @@ namespace Internal.SDK.AISession
             return await ExecuteSafeAsync(() => getSingleReplyRoute(Payload));
         }
 
-        public abstract Task<string> GetSingleReply(MessageDto Payload);
+        public abstract Task<string> GetSingleReply(GetSingleReplyRequestDTO Payload);
 
         [Route("initiateSession")]
         [HttpPost]

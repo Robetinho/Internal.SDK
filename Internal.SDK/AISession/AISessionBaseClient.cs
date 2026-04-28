@@ -23,7 +23,7 @@ namespace Internal.SDK.AISession
         }
 
         public async Task<Response<MessageDto, AISessionError>> InitiateSession(InitiateSessionRequestDTO Payload)
-        {
+        { 
             return await GetPostResponse<MessageDto>("initiateSession", Payload);
         }
 
