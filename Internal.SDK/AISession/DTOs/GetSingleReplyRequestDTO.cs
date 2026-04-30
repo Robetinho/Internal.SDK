@@ -9,12 +9,15 @@ using System.Threading.Tasks;
 namespace Internal.SDK.AISession.DTOs
 {
     public class GetSingleReplyRequestDTO
-    {
-
+    { 
         public required ModelTypeDTO ModelType { get; init; } 
 
         public required string Prompt { get; init; }
 
         public List<MessageDto>? MessageHistory { get; init; }
+
+        public List<FunctionDTO>? Functions { get; init; }
+
+        public List<VectorStoreDTO>? VectorStores { get; init; }
     }
 }

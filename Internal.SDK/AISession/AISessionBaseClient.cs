@@ -12,19 +12,19 @@ namespace Internal.SDK.AISession
         internal AISessionBaseClient(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base(domain, "api/ai-session", httpClient, systemLoggerClient) { }
 
 
-        public async Task<Response<string, AISessionError>> GetReply(GetReplyRequestDTO Payload)
+        public async Task<Response<MessageResponseDTO, AISessionError>> GetReply(GetReplyRequestDTO Payload)
         {
-            return await GetPostResponse<string>("getReply", Payload);
+            return await GetPostResponse<MessageResponseDTO>("getReply", Payload);
         }
 
-        public async Task<Response<string, AISessionError>> GetSingleReply(GetSingleReplyRequestDTO Payload)
+        public async Task<Response<MessageResponseDTO, AISessionError>> GetSingleReply(GetSingleReplyRequestDTO Payload)
         {
-            return await GetPostResponse<string>("getSingleReply", Payload);
+            return await GetPostResponse<MessageResponseDTO>("getSingleReply", Payload);
         }
 
-        public async Task<Response<MessageDto, AISessionError>> InitiateSession(InitiateSessionRequestDTO Payload)
+        public async Task<Response<MessageResponseDTO, AISessionError>> InitiateSession(InitiateSessionRequestDTO Payload)
         { 
-            return await GetPostResponse<MessageDto>("initiateSession", Payload);
+            return await GetPostResponse<MessageResponseDTO>("initiateSession", Payload);
         }
 
         public async Task<Response<CreateTrainingFileResponseDTO, AISessionError>> CreateTrainingFile(CreateTrainingFileRequestDTO Payload)

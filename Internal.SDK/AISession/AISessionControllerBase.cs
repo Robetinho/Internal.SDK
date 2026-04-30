@@ -20,7 +20,7 @@ namespace Internal.SDK.AISession
             return await ExecuteSafeAsync(() => GetReply(Payload));
         }
 
-        public abstract Task<string> GetReply(GetReplyRequestDTO Payload);
+        public abstract Task<MessageResponseDTO> GetReply(GetReplyRequestDTO Payload);
 
         [Route("getSingleReply")]
         [HttpPost]
@@ -29,7 +29,7 @@ namespace Internal.SDK.AISession
             return await ExecuteSafeAsync(() => getSingleReplyRoute(Payload));
         }
 
-        public abstract Task<string> GetSingleReply(GetSingleReplyRequestDTO Payload);
+        public abstract Task<MessageResponseDTO> GetSingleReply(GetSingleReplyRequestDTO Payload);
 
         [Route("initiateSession")]
         [HttpPost]
@@ -38,7 +38,7 @@ namespace Internal.SDK.AISession
             return await ExecuteSafeAsync(() => InitiateSession(Payload));
         }
 
-        public abstract Task<MessageDto> InitiateSession(InitiateSessionRequestDTO Payload);
+        public abstract Task<MessageResponseDTO> InitiateSession(InitiateSessionRequestDTO Payload);
 
 
         [Route("createTrainingFile")]

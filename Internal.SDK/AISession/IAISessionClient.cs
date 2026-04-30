@@ -6,11 +6,11 @@ namespace Internal.SDK.AISession
 {
     public interface IAISessionClient
     {
-        Task<Response<string, AISessionError>> GetReply(GetReplyRequestDTO Payload);
+        Task<Response<MessageResponseDTO, AISessionError>> GetReply(GetReplyRequestDTO Payload);
 
-        Task<Response<string, AISessionError>> GetSingleReply(GetSingleReplyRequestDTO Payload);
+        Task<Response<MessageResponseDTO, AISessionError>> GetSingleReply(GetSingleReplyRequestDTO Payload);
 
-        Task<Response<MessageDto, AISessionError>> InitiateSession(InitiateSessionRequestDTO Payload);
+        Task<Response<MessageResponseDTO, AISessionError>> InitiateSession(InitiateSessionRequestDTO Payload);
 
         Task<Response<CreateTrainingFileResponseDTO, AISessionError>> CreateTrainingFile(CreateTrainingFileRequestDTO Payload);
 
