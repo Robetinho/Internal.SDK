@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.AISession.DTOs
 {
-    public class FunctionResponseDTO
-    {
-        public string? Intent { get; init; }
+    public class FunctionResponsePropertiesDTO
+    {   
+        public string? Name { get; init; }
 
-        public FunctionResponsePropertiesDTO[]? Properties { get; init; }
-         
+        public string? Value { get; init; } 
     }
 }
