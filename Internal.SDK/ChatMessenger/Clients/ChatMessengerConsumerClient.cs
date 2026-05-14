@@ -8,7 +8,7 @@ using Internal.SDK.TextToSpeech.Implementations;
 namespace Internal.SDK.ChatMessenger
 {
 
-    public class ChatMessengerConsumerClient :   ChatMessengerServiceClientBase
+    public class ChatMessengerConsumerClient : ChatMessengerConsumerClientBase
     {
 
         public ChatMessengerConsumerClient() : base(SdkRegistry.GetConfig<ChatMessengerConsumerClient>().Domain, null, null) { }
