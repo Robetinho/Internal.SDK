@@ -2,6 +2,7 @@
 using Internal.SDK.AISession;
 using Internal.SDK.AISession.Clients;
 using Internal.SDK.Base;
+using Internal.SDK.ChatMessenger;
 using Internal.SDK.ConversationProtocol;
 using Internal.SDK.CorePractice;
 using Internal.SDK.CorePractice.Clients;
@@ -31,6 +32,7 @@ namespace Internal.SDK.Configuration
         SystemLoggerServiceAPI = 5006,
         CorePracticeServiceAPI = 5007,
         GoogleTextToSpeechServiceAPI = 5008,
+        ChatMessengerServiceAPI = 5009,
 
     }
 
@@ -51,6 +53,7 @@ namespace Internal.SDK.Configuration
                 RegisterClient<ISystemLoggerClient, SystemLoggerClient>(new ClientConfig { Domain = "http://localhost:5006/", ServiceName = Service.SystemLoggerServiceAPI });
                 RegisterClient<ICorePracticeClient, CorePracticeClient>(new ClientConfig { Domain = "http://localhost:5007/", ServiceName = Service.CorePracticeServiceAPI });
                 RegisterClient<ITextToSpeechClient, GoogleTextToSpeechClient>(new ClientConfig { Domain = "http://localhost:5008/", ServiceName = Service.GoogleTextToSpeechServiceAPI });
+                RegisterClient<IChatMessengerServiceClient, ChatMessengerServiceClient>(new ClientConfig { Domain = "http://localhost:5008/", ServiceName = Service.ChatMessengerServiceAPI });
 
             }
 

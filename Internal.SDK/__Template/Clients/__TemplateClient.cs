@@ -8,12 +8,12 @@ using Internal.SDK.TextToSpeech.Implementations;
 namespace Internal.SDK.__Template
 {
 
-    public class CorePracticeClient :   __TemplateClientBase
+    public class __TemplateClientBaseClient :   __TemplateClientBase
     {
 
-        public CorePracticeClient() : base(SdkRegistry.GetConfig<CorePracticeClient>().Domain, null, null) { }
+        public __TemplateClientBaseClient() : base(SdkRegistry.GetConfig<__TemplateClientBaseClient>().Domain, null, null) { }
 
-        public CorePracticeClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base(SdkRegistry.GetConfig<CorePracticeClient>().Domain, httpClient, systemLoggerClient) { }
+        public __TemplateClientBaseClient(HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base(SdkRegistry.GetConfig<__TemplateClientBaseClient>().Domain, httpClient, systemLoggerClient) { }
 
     }
 }
