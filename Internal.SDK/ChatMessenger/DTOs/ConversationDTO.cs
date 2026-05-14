@@ -5,6 +5,6 @@ namespace Internal.SDK.ChatMessenger.DTOs
     {
         public required ConversationIdentifierDTO ConversationIdentifier;
 
-        public List<ChatMessageDTO> MessageHistory { get; } = new();
+        public List<ChatMessageDTO> MessageHistory { get;  set; } = new();
     }
 }
