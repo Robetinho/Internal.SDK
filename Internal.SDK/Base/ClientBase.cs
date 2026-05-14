@@ -1,4 +1,5 @@
 ﻿using Internal.SDK.AISession;
+using Internal.SDK.Configuration;
 using Internal.SDK.SystemLogger;
 using Microsoft.Extensions.Hosting;
 using Microsoft.VisualBasic;
@@ -58,6 +59,7 @@ namespace Internal.SDK.Base
             var url = $"{_domain.TrimEnd('/')}/{_root.TrimEnd('/')}/{path.TrimStart('/')}{queryString}";
             var request = new HttpRequestMessage(httpMethod, url);
 
+            request.Headers.Add("consumer-service", Service.OpenAIServiceAPI.ToString());
             request.Headers.Add("x-py-sys-api-version", "v2");
 
             request.Content = new StringContent(body);

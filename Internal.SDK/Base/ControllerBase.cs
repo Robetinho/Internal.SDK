@@ -1,4 +1,5 @@
-﻿using Internal.SDK.SlackMessenger;
+﻿using Internal.SDK.Configuration;
+using Internal.SDK.SlackMessenger;
 using Internal.SDK.SystemLogger;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,11 +13,22 @@ namespace Internal.SDK.Base
         : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         public ISystemLoggerClient? SystemLogger { get; set; }
+
+        public Service ConsumerService { get; private set; }
           
         internal ControllerBase(ISystemLoggerClient? systemLoggerClient)
         {
             SystemLogger = systemLoggerClient;
+            
+            try
+            { 
+                ConsumerService = Enum.Parse<Service>(HttpContext?.Request?.Headers["consumer-service"].ToString());
+            }
+            catch  { }
         }
+
+        public string CallingDomain { get; private set; }
+
 
         internal async Task<IActionResult> ExecuteSafeAsync<TResult>(Func<Task<TResult>> operation) 
         {
