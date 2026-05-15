@@ -57,8 +57,7 @@ namespace Internal.SDK.Configuration
                 RegisterClient<IChatMessengerServiceClient, ChatMessengerServiceClient>(new ClientConfig { Domain = "http://localhost:5009/", ServiceName = Service.ChatMessengerServiceAPI });
                 RegisterClient<IChatMessengerConsumerClient, CommsManagerChatMessengerConsumerClient>(new ClientConfig { Domain = "http://localhost:5010/", ServiceName = Service.CommsManagerServiceAPI });
 
-            }
-
+            } 
         }
 
 
@@ -76,8 +75,7 @@ namespace Internal.SDK.Configuration
 
         // 2. Get Config by Type
         public static ClientConfig GetConfig<TImplementation>()
-        {
-
+        { 
             Register();
             return _registry.TryGetValue(typeof(TImplementation), out var entry) ? entry.Config : null;
         }

@@ -8,7 +8,8 @@ namespace Internal.SDK.ChatMessenger
 
     public class ChatMessengerServiceClientBase : ClientBase<ChatMessengerError>, IChatMessengerServiceClient
     {
-        public ChatMessengerServiceClientBase(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) : base(domain, "api/ai-session", httpClient, systemLoggerClient) { }
+        public ChatMessengerServiceClientBase(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) 
+            : base(domain, "api/chat-messenger-service", httpClient, systemLoggerClient) { }
 
         public async Task<Response<ConversationDTO, ChatMessengerError>> GetConversation(ConversationIdentifierDTO Payload)
         {
