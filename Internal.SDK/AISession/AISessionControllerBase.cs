@@ -24,9 +24,9 @@ namespace Internal.SDK.AISession
 
         [Route("getSingleReply")]
         [HttpPost]
-        public async Task<IActionResult> getSingleReplyRoute([FromBody] GetSingleReplyRequestDTO Payload)
+        public async Task<IActionResult> GetSingleReplyRoute([FromBody] GetSingleReplyRequestDTO Payload)
         {
-            return await ExecuteSafeAsync(() => getSingleReplyRoute(Payload));
+            return await ExecuteSafeAsync(() => GetSingleReply(Payload));
         }
 
         public abstract Task<MessageResponseDTO> GetSingleReply(GetSingleReplyRequestDTO Payload);
