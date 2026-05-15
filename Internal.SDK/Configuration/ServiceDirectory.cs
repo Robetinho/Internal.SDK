@@ -33,6 +33,7 @@ namespace Internal.SDK.Configuration
         CorePracticeServiceAPI = 5007,
         GoogleTextToSpeechServiceAPI = 5008,
         ChatMessengerServiceAPI = 5009,
+        CommsManagerServiceAPI = 5010,
 
     }
 
@@ -53,7 +54,8 @@ namespace Internal.SDK.Configuration
                 RegisterClient<ISystemLoggerClient, SystemLoggerClient>(new ClientConfig { Domain = "http://localhost:5006/", ServiceName = Service.SystemLoggerServiceAPI });
                 RegisterClient<ICorePracticeClient, CorePracticeClient>(new ClientConfig { Domain = "http://localhost:5007/", ServiceName = Service.CorePracticeServiceAPI });
                 RegisterClient<ITextToSpeechClient, GoogleTextToSpeechClient>(new ClientConfig { Domain = "http://localhost:5008/", ServiceName = Service.GoogleTextToSpeechServiceAPI });
-                RegisterClient<IChatMessengerServiceClient, ChatMessengerServiceClient>(new ClientConfig { Domain = "http://localhost:5008/", ServiceName = Service.ChatMessengerServiceAPI });
+                RegisterClient<IChatMessengerServiceClient, ChatMessengerServiceClient>(new ClientConfig { Domain = "http://localhost:5009/", ServiceName = Service.ChatMessengerServiceAPI });
+                RegisterClient<IChatMessengerConsumerClient, CommsManagerChatMessengerConsumerClient>(new ClientConfig { Domain = "http://localhost:5010/", ServiceName = Service.CommsManagerServiceAPI });
 
             }
 
