@@ -5,6 +5,6 @@ namespace Internal.SDK.ChatMessenger
 {
     public interface IChatMessengerConsumerClient
     {
-        Task<Response<ChatMessageDTO[]?, ChatMessengerError>> UserResponseReceived(ConversationDTO Payload);        
+        Task<Response<UserResponseReceivedResponseDTO?, ChatMessengerError>> UserResponseReceived(ConversationDTO Payload);        
     }
 }

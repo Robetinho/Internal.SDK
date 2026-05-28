@@ -19,7 +19,7 @@ namespace Internal.SDK.ChatMessenger
             return await ExecuteSafeAsync(() => UserResponseReceived(Payload));
         }
 
-        public abstract Task<ChatMessageDTO[]?> UserResponseReceived(ConversationDTO Payload);
+        public abstract Task<UserResponseReceivedResponseDTO?> UserResponseReceived(ConversationDTO Payload);
 
 
     }

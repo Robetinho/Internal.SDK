@@ -11,9 +11,9 @@ namespace Internal.SDK.ChatMessenger
         public ChatMessengerConsumerClientBase(string domain, HttpClient? httpClient = null, ISystemLoggerClient? systemLoggerClient = null) 
             : base(domain, "api/chat-messenger-consumer", httpClient, systemLoggerClient) { }
 
-        public async Task<Response<ChatMessageDTO[]?, ChatMessengerError>> UserResponseReceived(ConversationDTO Payload)
+        public async Task<Response<UserResponseReceivedResponseDTO?, ChatMessengerError>> UserResponseReceived(ConversationDTO Payload)
         {
-            return await GetPostResponse<ChatMessageDTO[]?>("userResponseReceived", Payload);
+            return await GetPostResponse<UserResponseReceivedResponseDTO?>("userResponseReceived", Payload);
         } 
     }
 }
