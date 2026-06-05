@@ -116,7 +116,7 @@ namespace Internal.SDK.Base
                 {
                     if (typeof(T) == typeof(string))
                     {
-                        object? raw = await response.Content.ReadAsStringAsync();
+                        object? raw = contentBody;
                         result.Item = (T)raw!;
                     }
                     else
@@ -126,7 +126,9 @@ namespace Internal.SDK.Base
                 }
                 else
                 {
-                    var json = await response.Content.ReadAsStringAsync();
+                    var json = contentBody;
+                    Console.WriteLine("Received error response body:");
+                    Console.WriteLine(json); 
                     var doc = JsonDocument.Parse(json);
 
                     var typeName = doc.RootElement.GetProperty("type").GetString();
