@@ -5,7 +5,7 @@ namespace Internal.SDK.ChatMessenger.DTOs
 {
     public class PushMessagesRequestDTO
     {
-        public required ConversationIdentifierDTO ConversationIdentifierDTO { get; set; }
+        public required ConversationIdentifierDTO ConversationIdentifier { get; set; }
         
         public ConversationSettingsDTO? ConversationSettings { get; set; }
 
