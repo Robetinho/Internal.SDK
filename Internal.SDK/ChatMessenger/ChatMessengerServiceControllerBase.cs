@@ -29,6 +29,42 @@ namespace Internal.SDK.ChatMessenger
         }
 
         public abstract Task<bool> PushMessages(PushMessagesRequestDTO Payload);
-         
-    } 
+
+        [Route("addClient")]
+        [HttpPost]
+        public async Task<IActionResult> AddClientRoute([FromBody] ClientDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => AddClient(Payload));
+        }
+
+        public abstract Task<bool> AddClient(ClientDTO Payload);
+
+        [Route("updateClient")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateClientRoute([FromBody] ClientDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => UpdateClient(Payload));
+        }
+
+        public abstract Task<bool> UpdateClient(ClientDTO Payload);
+
+        [Route("deleteClient")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteClientRoute([FromBody] string Payload)
+        {
+            return await ExecuteSafeAsync(() => DeleteClient(Payload));
+        }
+
+        public abstract Task<bool> DeleteClient(string Payload);
+
+        [Route("getClientById")]
+        [HttpPost]
+        public async Task<IActionResult> GetClientByIdRoute([FromBody] string Payload)
+        {
+            return await ExecuteSafeAsync(() => GetClientByIdClient(Payload));
+        }
+
+        public abstract Task<ClientDTO> GetClientByIdClient(string Payload);
+
+    }
 }

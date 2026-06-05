@@ -19,6 +19,27 @@ namespace Internal.SDK.ChatMessenger
         public async Task<Response<bool, ChatMessengerError>> PushMessages(PushMessagesRequestDTO Payload)
         {
             return await GetPostResponse<bool>("pushMessages", Payload);
-        } 
+        }
+
+        public async Task<Response<bool, ChatMessengerError>> AddClient(ClientDTO Payload)
+        {
+            return await GetPostResponse<bool>("addClient", Payload);
+        }
+
+        public async Task<Response<bool, ChatMessengerError>> UpdateClient(ClientDTO Payload)
+        {
+            return await GetPostResponse<bool>("updateClient", Payload);
+        }
+
+        public async Task<Response<ClientDTO, ChatMessengerError>> GetClientByClientId(string Payload)
+        {
+            return await GetPostResponse<ClientDTO>("getClientByClientId", Payload);
+        }
+
+        public async Task<Response<bool, ChatMessengerError>> DeleteClient(string Payload)
+        {
+            return await GetPostResponse<bool>("deleteClient", Payload);
+        }
+
     }
 }
