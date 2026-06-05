@@ -1,6 +1,4 @@
-﻿
-using Internal.SDK.ChatMessenger.DTOs.Enums;
-using Internal.SDK.Configuration;
+﻿using Internal.SDK.Configuration;
 
 namespace Internal.SDK.ChatMessenger.DTOs
 {
@@ -10,9 +8,7 @@ namespace Internal.SDK.ChatMessenger.DTOs
 
         public required string ClientName { get; set; }
         
-        public required Service Service { get; set; }
-
-        public required int SettingsId { get; set; }
+        public required Service Service { get; set; } 
 
         public bool? ShowTyping { get; set; }
 
@@ -70,6 +66,6 @@ namespace Internal.SDK.ChatMessenger.DTOs
 
         public required int SystemMessageFontSize { get; set; }
 
-        public  List<string> StarupMessages { get; set; } = new();         
+        public  List<string> StartupMessages { get; set; } = new();         
     }
 }
