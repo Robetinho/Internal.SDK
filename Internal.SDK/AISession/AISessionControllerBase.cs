@@ -87,6 +87,26 @@ namespace Internal.SDK.AISession
 
         public abstract Task<TrainingFileDTO> GetTrainingFile(GetTrainingFileRequestDTO Payload);
 
+
+
+        [Route("createVenderStore")]
+        [HttpPost]
+        public async Task<IActionResult> CreateVenderStoreRoute([FromBody] CreateVenderStoreRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => CreateVenderStore(Payload));
+        }
+
+        public abstract Task<bool> CreateVenderStore(CreateVenderStoreRequestDTO Payload);
+       
+        
+        [Route("updateVenderStore")]
+        [HttpPost]
+        public async Task<IActionResult> UpdateVenderStoreRoute([FromBody] UpdateVenderStoreRequestDTO Payload)
+        {
+            return await ExecuteSafeAsync(() => UpdateVenderStore(Payload));
+        }
+
+        public abstract Task<bool> UpdateVenderStore(UpdateVenderStoreRequestDTO Payload);
     }
 
 }

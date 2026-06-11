@@ -21,5 +21,10 @@ namespace Internal.SDK.AISession
         Task<Response<FineTunedModelDTO, AISessionError>> GetFineTunedModel(GetFineTunedModelRequestDTO Payload);
 
         Task<Response<TrainingFileDTO, AISessionError>> GetTrainingFile(GetTrainingFileRequestDTO Payload);
+
+        Task<Response<string, AISessionError>> CreateVenderStore(CreateVenderStoreRequestDTO Payload);
+        
+        Task<Response<bool, AISessionError>> UpdateVendeStore(UpdateVenderStoreRequestDTO Payload);
+
     }
 }

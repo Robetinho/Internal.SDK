@@ -51,5 +51,17 @@ namespace Internal.SDK.AISession
         {
             return await GetPostResponse<TrainingFileDTO>("getTrainingFile", Payload);
         }
+
+
+        public async Task<Response<string, AISessionError>> CreateVenderStore(CreateVenderStoreRequestDTO Payload)
+        {
+            return await GetPostResponse<string>("createVenderStore", Payload);
+        }
+
+
+        public async Task<Response<bool, AISessionError>> UpdateVendeStore(UpdateVenderStoreRequestDTO Payload)
+        {
+            return await GetPostResponse<bool>("updateVenderStore", Payload);
+        }
     }
 }
