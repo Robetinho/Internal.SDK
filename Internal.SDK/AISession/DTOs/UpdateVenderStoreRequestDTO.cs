@@ -10,7 +10,7 @@ namespace Internal.SDK.AISession.DTOs
 {
     public class UpdateVenderStoreRequestDTO
     {        
-        public required string VencerStoreId { get; init; }
+        public required string VenderStoreId { get; init; }
 
         public required string FileText { get; init; } 
     }

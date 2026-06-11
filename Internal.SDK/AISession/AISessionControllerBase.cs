@@ -96,7 +96,7 @@ namespace Internal.SDK.AISession
             return await ExecuteSafeAsync(() => CreateVenderStore(Payload));
         }
 
-        public abstract Task<bool> CreateVenderStore(CreateVenderStoreRequestDTO Payload);
+        public abstract Task<string> CreateVenderStore(CreateVenderStoreRequestDTO Payload);
        
         
         [Route("updateVenderStore")]
