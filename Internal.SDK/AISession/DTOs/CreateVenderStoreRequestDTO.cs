@@ -12,6 +12,6 @@ namespace Internal.SDK.AISession.DTOs
     {        
         public required string Name { get; init; }
 
-        public required string FileText { get; init; } 
+        public List<FileDTO> Files { get; init; } = new();
     }
 }

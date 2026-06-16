@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Internal.SDK.AISession.DTOs
 {
-    public class UpdateVenderStoreRequestDTO
-    {        
-        public required string VenderStoreId { get; init; }
+    public class FileDTO
+    {
+        public required string Name { get; init; }
 
-        public List<FileDTO> Files { get; init; } = new();
+        public required string Text { get; init; }
+         
     }
 }
