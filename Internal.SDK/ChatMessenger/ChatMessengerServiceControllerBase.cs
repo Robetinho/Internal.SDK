@@ -57,14 +57,14 @@ namespace Internal.SDK.ChatMessenger
 
         public abstract Task<bool> DeleteClient(string Payload);
 
-        [Route("getClientById")]
+        [Route("getClientByClientId")]
         [HttpPost]
-        public async Task<IActionResult> GetClientByIdRoute([FromBody] string Payload)
+        public async Task<IActionResult> GetClientByClientIdRoute([FromBody] string Payload)
         {
-            return await ExecuteSafeAsync(() => GetClientByIdClient(Payload));
+            return await ExecuteSafeAsync(() => GetClientByClientId(Payload));
         }
 
-        public abstract Task<ClientDTO> GetClientByIdClient(string Payload);
+        public abstract Task<ClientDTO> GetClientByClientId(string Payload);
 
     }
 }
