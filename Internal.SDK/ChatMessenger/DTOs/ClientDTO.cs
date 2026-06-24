@@ -66,6 +66,19 @@ namespace Internal.SDK.ChatMessenger.DTOs
 
         public required int SystemMessageFontSize { get; set; }
 
-        public  List<string> StartupMessages { get; set; } = new();         
+
+
+        public required string SendButtonColor { get; set; } 
+
+        public required string SendButtonFontColor { get; set; } 
+
+        public required string ToggleButtonColor { get; set; }  
+
+        public required string ToggleButtonFontColor { get; set; } 
+
+        public required string ToggleButtonText { get; set; } 
+
+
+        public List<string> StartupMessages { get; set; } = new();         
     }
 }
