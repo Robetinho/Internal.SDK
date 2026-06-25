@@ -9,6 +9,8 @@ namespace Internal.SDK.ChatMessenger.DTOs
         
         public ConversationSettingsDTO? ConversationSettings { get; set; }
 
+        public ClientDefinedSettingsDTO? ClientDefinedSettings { get; set; }
+
         public List<ChatMessageDTO> Messages { get; set;  } = new();
     }
 }
