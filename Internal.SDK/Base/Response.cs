@@ -19,7 +19,7 @@
 
         internal ClientBase<TError>? _clientBase { get; init; }
          
-        public TError? Error { get; set; }
+        public ServiceError? Error { get; set; }
          
 
         public async Task RetryIfFailed(int retryAttemps = 1, int waitTime = 100)

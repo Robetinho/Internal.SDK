@@ -23,7 +23,7 @@ namespace Internal.SDK.Base
 
 
     // Add a generic type constraint to ensure TError is ServiceError or a derived type
-    public abstract class ClientBase<TError> : IServiceClient where TError : ServiceError
+    public abstract class ClientBase<TError> : IServiceClient where TError : ServiceError 
     {
         //static IServiceInfo IServiceInfo.Create(string domain, string root, HttpClient? httpClient, ISystemLoggerClient? systemLoggerClient)
         //{
@@ -146,8 +146,13 @@ namespace Internal.SDK.Base
 
                 Console.WriteLine("exception thrown");
                 Console.WriteLine(ex.Message);
+ 
 
-                result.Error = ((ServiceError)ex) as TError;
+
+                var error = new ServiceError().FromException(ex);
+
+
+                result.Error = error;
                 result.IsSuccess = false;
 
                 if (_systemLoggerClient != null)
