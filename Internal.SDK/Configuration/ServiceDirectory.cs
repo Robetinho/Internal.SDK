@@ -6,6 +6,7 @@ using Internal.SDK.ChatMessenger;
 using Internal.SDK.ConversationProtocol;
 using Internal.SDK.CorePractice;
 using Internal.SDK.CorePractice.Clients;
+using Internal.SDK.Email;
 using Internal.SDK.SlackMessenger;
 using Internal.SDK.SlackMessenger.Clients;
 using Internal.SDK.SystemLogger;
@@ -34,6 +35,7 @@ namespace Internal.SDK.Configuration
         GoogleTextToSpeechServiceAPI = 5008,
         ChatMessengerServiceAPI = 5009,
         CommsManagerServiceAPI = 5010,
+        EmailServiceAPI = 5011,
 
     }
 
@@ -53,11 +55,11 @@ namespace Internal.SDK.Configuration
                 RegisterClient<ISlackMessengerClient, SlackMessengerClient>(new ClientConfig { Domain = "http://localhost:5005/", ServiceName = Service.OpenAIServiceAPI });
                 RegisterClient<ISystemLoggerClient, SystemLoggerClient>(new ClientConfig { Domain = "http://localhost:5006/", ServiceName = Service.SystemLoggerServiceAPI });
                 RegisterClient<ICorePracticeClient, CorePracticeClient>(new ClientConfig { Domain = "http://localhost:5007/", ServiceName = Service.CorePracticeServiceAPI });
-                RegisterClient<ITextToSpeechClient, GoogleTextToSpeechClient>(new ClientConfig { Domain = "http://localhost:5008/", ServiceName = Service.GoogleTextToSpeechServiceAPI });
+                RegisterClient<ITextToSpeechClient, GoogleTextToSpeechClient>(new ClientConfig { Domain = "http://localhost:5008/", ServiceName = Service.GoogleTextToSpeechServiceAPI });            
                 RegisterClient<IChatMessengerServiceClient, ChatMessengerServiceClient>(new ClientConfig { Domain = "http://localhost:5009/", ServiceName = Service.ChatMessengerServiceAPI });
                 RegisterClient<IChatMessengerConsumerClient, CommsManagerChatMessengerConsumerClient>(new ClientConfig { Domain = "http://localhost:5010/", ServiceName = Service.CommsManagerServiceAPI });
-
-            } 
+                RegisterClient<IEmailClient, EmailClient>(new ClientConfig { Domain = "http://localhost:5011/", ServiceName = Service.EmailServiceAPI });
+            }
         }
 
 
