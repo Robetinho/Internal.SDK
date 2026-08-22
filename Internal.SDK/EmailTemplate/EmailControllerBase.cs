@@ -19,7 +19,7 @@ namespace Internal.SDK.Email
             return await ExecuteSafeAsync(() => SendEmail(Payload));
         }
 
-        public abstract Task<string> SendEmail(EmailDto Payload);
+        public abstract Task<bool> SendEmail(EmailDto Payload);
 
 
     }
